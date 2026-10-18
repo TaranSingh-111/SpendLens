@@ -55,10 +55,10 @@ extension AuthStatePatterns on AuthState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _AuthInitial value)?  initial,TResult Function( AuthLoading value)?  loading,TResult Function( Authenticated value)?  authenticated,TResult Function( Unauthenticated value)?  unauthenticated,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthInitial value)?  initial,TResult Function( AuthLoading value)?  loading,TResult Function( Authenticated value)?  authenticated,TResult Function( Unauthenticated value)?  unauthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _AuthInitial() when initial != null:
+case AuthInitial() when initial != null:
 return initial(_that);case AuthLoading() when loading != null:
 return loading(_that);case Authenticated() when authenticated != null:
 return authenticated(_that);case Unauthenticated() when unauthenticated != null:
@@ -80,10 +80,10 @@ return unauthenticated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _AuthInitial value)  initial,required TResult Function( AuthLoading value)  loading,required TResult Function( Authenticated value)  authenticated,required TResult Function( Unauthenticated value)  unauthenticated,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthInitial value)  initial,required TResult Function( AuthLoading value)  loading,required TResult Function( Authenticated value)  authenticated,required TResult Function( Unauthenticated value)  unauthenticated,}){
 final _that = this;
 switch (_that) {
-case _AuthInitial():
+case AuthInitial():
 return initial(_that);case AuthLoading():
 return loading(_that);case Authenticated():
 return authenticated(_that);case Unauthenticated():
@@ -101,10 +101,10 @@ return unauthenticated(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _AuthInitial value)?  initial,TResult? Function( AuthLoading value)?  loading,TResult? Function( Authenticated value)?  authenticated,TResult? Function( Unauthenticated value)?  unauthenticated,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthInitial value)?  initial,TResult? Function( AuthLoading value)?  loading,TResult? Function( Authenticated value)?  authenticated,TResult? Function( Unauthenticated value)?  unauthenticated,}){
 final _that = this;
 switch (_that) {
-case _AuthInitial() when initial != null:
+case AuthInitial() when initial != null:
 return initial(_that);case AuthLoading() when loading != null:
 return loading(_that);case Authenticated() when authenticated != null:
 return authenticated(_that);case Unauthenticated() when unauthenticated != null:
@@ -127,7 +127,7 @@ return unauthenticated(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( User user)?  authenticated,TResult Function( String? error)?  unauthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _AuthInitial() when initial != null:
+case AuthInitial() when initial != null:
 return initial();case AuthLoading() when loading != null:
 return loading();case Authenticated() when authenticated != null:
 return authenticated(_that.user);case Unauthenticated() when unauthenticated != null:
@@ -151,7 +151,7 @@ return unauthenticated(_that.error);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( User user)  authenticated,required TResult Function( String? error)  unauthenticated,}) {final _that = this;
 switch (_that) {
-case _AuthInitial():
+case AuthInitial():
 return initial();case AuthLoading():
 return loading();case Authenticated():
 return authenticated(_that.user);case Unauthenticated():
@@ -171,7 +171,7 @@ return unauthenticated(_that.error);}
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( User user)?  authenticated,TResult? Function( String? error)?  unauthenticated,}) {final _that = this;
 switch (_that) {
-case _AuthInitial() when initial != null:
+case AuthInitial() when initial != null:
 return initial();case AuthLoading() when loading != null:
 return loading();case Authenticated() when authenticated != null:
 return authenticated(_that.user);case Unauthenticated() when unauthenticated != null:
@@ -186,8 +186,8 @@ return unauthenticated(_that.error);case _:
 /// @nodoc
 
 
-class _AuthInitial implements AuthState {
-  const _AuthInitial();
+class AuthInitial implements AuthState {
+  const AuthInitial();
   
 
 
@@ -197,7 +197,7 @@ class _AuthInitial implements AuthState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthInitial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthInitial);
 }
 
 
