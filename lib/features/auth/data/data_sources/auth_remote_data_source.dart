@@ -1,12 +1,12 @@
+
 import 'package:dio/dio.dart';
 import 'package:spend_lens/features/auth/data/models/login_response.dart';
-import 'package:spend_lens/features/auth/data/models/register_response.dart';
 
-import '../../domain/entities/user.dart';
 
 class AuthException implements Exception{
-  AuthException(this.message);
+  AuthException(this.message, {this.statusCode});
   final String message;
+  final int? statusCode;
   @override
   String toString() => message;
 }
@@ -19,19 +19,25 @@ class AuthRemoteDataSource {
     final res = await _dio.post('/auth/login',
         data: {'email': email, 'password': password});
 
-    return LoginResponse.fromJson(res.data);
+    return LoginResponse.fromJson(Map<String, dynamic>.from(res.data as Map));
   });
 
-  Future<RegisterResponse> register(String name, String email, String password) => _guard(()async{
-    final res = await _dio.post('/auth/register',
+
+  Future<void> register(String name, String email, String password) => _guard(() async {
+     await _dio.post('/auth/register',
         data: {'name': name, 'email': email, 'password': password});
-
-    return RegisterResponse.fromJson(res.data);
   });
 
-  Future<User> me() => _guard(() async{
-    final res = await _dio.get('/auth/me');
-    return User.fromJson(res.data);
+
+  Future<LoginResponse> refresh(String refreshToken) => _guard(() async{
+    final res = await _dio.post('/auth/refresh',
+        data: {'refreshToken': refreshToken});
+    return LoginResponse.fromJson(Map<String, dynamic>.from(res.data as Map));
+  });
+
+  Future<void> logout(String refreshToken) => _guard(() async{
+    await _dio.post('/auth/logout',
+          data: {'refreshToken': refreshToken});
   });
 
   Future<T> _guard<T>(Future<T> Function() call) async{
@@ -39,8 +45,10 @@ class AuthRemoteDataSource {
       return await call();
     }on DioException catch(e){
       final data = e.response?.data;
-      final message = (data is Map ? data['message'] : null) as String?;
-      throw AuthException(message ?? 'Something went wrong. Please try again.');
+      final message = data is Map ? data['message']?.toString() : null;
+      throw AuthException(
+          message ?? 'Something went wrong. Please try again.',
+          statusCode: e.response?.statusCode);
     }
   }
 }

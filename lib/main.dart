@@ -5,7 +5,6 @@ import 'package:spend_lens/features/auth/data/data_sources/auth_remote_data_sour
 import 'package:spend_lens/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:spend_lens/features/auth/data/services/token_storage.dart';
 import 'package:spend_lens/features/auth/presentation/pages/auth_gate.dart';
-import 'package:spend_lens/features/auth/presentation/pages/login_page.dart';
 
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
@@ -16,8 +15,13 @@ void main() {
   final dio = Dio(BaseOptions(baseUrl: ''))
     ..interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async{
-        final token = await tokens.readAccess();
-        if(token != null) options.headers['Authorization'] = 'Bearer $token';
+        final isAuthEndpoint = options.path.startsWith("/auth/");
+
+        if(!isAuthEndpoint){
+          final token = await tokens.readAccess();
+          if(token != null) options.headers['Authorization'] = 'Bearer $token';
+        }
+
         handler.next(options);
       }
     ));

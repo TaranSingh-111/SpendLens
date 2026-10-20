@@ -7,10 +7,12 @@ part 'login_response.g.dart';
 @freezed
 abstract class LoginResponse with _$LoginResponse{
   const factory LoginResponse({
+    required String accessToken,
+    required String refreshToken,
     required String tokenType,
+    required int expiresIn,
     required User user,
-  @JsonKey(name: 'bearer_token') required String accessToken,
-  @JsonKey(name: 'refresh_token') String? refreshToken,
+
 }) = _LoginResponse;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);

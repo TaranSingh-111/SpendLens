@@ -4,42 +4,52 @@ import 'package:spend_lens/features/auth/domain/repo/auth_repo.dart';
 
 import '../../domain/entities/user.dart';
 
-class AuthRepoImpl implements AuthRepo{
+class AuthRepoImpl implements AuthRepo {
   final AuthRemoteDataSource _remote;
   final TokenStorage _tokens;
 
   AuthRepoImpl(this._remote, this._tokens);
 
   @override
-  Future<User?> login(String email, String password) async{
+  Future<User?> login(String email, String password) async {
     final res = await _remote.login(email, password);
     await _tokens.save(access: res.accessToken, refresh: res.refreshToken);
     return res.user;
   }
 
   @override
-  Future<User?> register(String name, String email, String password) async{
-    final res = await _remote.register(name, email, password);
-
-    return User(
-      id: res.id.toString(),
-      name: res.name,
-      email: res.email
-    );
+  Future<void> register(String email, String password, String name) async {
+    await _remote.register(email, password, name);
   }
 
   @override
-  Future<User?> restoreSession() async{
-    final token = await _tokens.readAccess();
-    if(token == null) return null;
-    try{
-      return await _remote.me();
-    } on AuthException{
+  Future<User?> restoreSession() async {
+    final refreshToken = await _tokens.readRefresh();
+    if (refreshToken == null) return null;
+    try {
+      final res = await _remote.refresh(refreshToken);
+
+      //saves both replacement token
+      await _tokens.save(access: res.accessToken, refresh: res.refreshToken);
+
+      return res.user;
+    } on AuthException {
       await _tokens.clear();
       return null;
     }
   }
 
   @override
-  Future<void> logout() => _tokens.clear();
+  Future<void> logout() async {
+    final refreshToken = await _tokens.readRefresh();
+
+    try {
+      if (refreshToken != null) {
+        await _remote.logout(refreshToken);
+      }
+    } finally{
+      await _tokens.clear();
+    }
+
+  }
 }
