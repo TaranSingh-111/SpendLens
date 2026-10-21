@@ -16,7 +16,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepo _authRepo;
 
   Future<void> _onStarted(AuthStarted e, Emitter<AuthState> emit) async{
-    emit(const AuthState.loading());
 
     try {
       final user = await _authRepo.restoreSession();
@@ -50,7 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const AuthState.loading());
     try{
       await _authRepo.register(e.email, e.password, e.name);
-      emit(AuthState.unauthenticated());
+      emit(const AuthState.registrationSuccess());
     }on AuthException catch (ex){
       emit(AuthState.unauthenticated(error: ex.message));
     }

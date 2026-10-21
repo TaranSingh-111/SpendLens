@@ -23,7 +23,7 @@ class AuthRemoteDataSource {
   });
 
 
-  Future<void> register(String name, String email, String password) => _guard(() async {
+  Future<void> register(String email, String password, String name) => _guard(() async {
      await _dio.post('/auth/register',
         data: {'name': name, 'email': email, 'password': password});
   });

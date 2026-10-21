@@ -27,7 +27,7 @@ class _AuthGateState extends State<AuthGate> {
     return BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state){
           return switch(state) {
-            AuthInitial() => const Scaffold(
+            AuthInitial()  => const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -38,7 +38,7 @@ class _AuthGateState extends State<AuthGate> {
               body: Center(child: Text('Welcome, ${user.email}')),
             ),
 
-            AuthLoading() || Unauthenticated()=> showLoginPage
+             RegistrationSuccess() || AuthLoading() || Unauthenticated()=> showLoginPage
                 ? LoginPage(togglePage: togglePages)
                 : RegisterPage(togglePage: togglePages),
           };

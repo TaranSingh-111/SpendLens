@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _confirmPassword = TextEditingController();
 
   void register() {
-    if (_password != _confirmPassword) {
+    if (_password.text != _confirmPassword.text) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Passwords don't match")));
@@ -51,12 +51,24 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-      listenWhen: (prev, curr) => curr is Unauthenticated,
+      listenWhen: (prev, curr) => curr is Unauthenticated || curr is RegistrationSuccess,
       listener: (context, state) {
-        if (state case Unauthenticated(:final error?)) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(error)));
+        if (state is RegistrationSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Account created successfully! Please login.'),
+                backgroundColor: Colors.green,
+              )
+          );
+
+          widget.togglePage?.call();
+        } else if(state case Unauthenticated(:final error?)){
+          ScaffoldMessenger.of(context,).showSnackBar(
+              SnackBar(
+                content: Text(error),
+                backgroundColor: Colors.red,
+              )
+          );
         }
       },
       builder: (context, state) {
