@@ -6,27 +6,29 @@ import 'package:spend_lens/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:spend_lens/features/auth/data/services/token_storage.dart';
 import 'package:spend_lens/features/auth/presentation/pages/auth_gate.dart';
 
+import 'core/network/auth_interceptor.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final tokens = TokenStorage();
-  final dio = Dio(BaseOptions(baseUrl: ''))
-    ..interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async{
-        final isAuthEndpoint = options.path.startsWith("/auth/");
 
-        if(!isAuthEndpoint){
-          final token = await tokens.readAccess();
-          if(token != null) options.headers['Authorization'] = 'Bearer $token';
-        }
+  final dio = Dio(BaseOptions(
+    baseUrl: 'http://10.0.2.2:8080',
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10)
+  ));
 
-        handler.next(options);
-      }
-    ));
+  final authRemote = AuthRemoteDataSource(dio);
+
+  dio.interceptors.add(AuthInterceptor(
+    dio: dio,
+    token: tokens,
+    dataSource: authRemote
+  ));
   
-  final repo = AuthRepoImpl(AuthRemoteDataSource(dio), tokens);
+  final repo = AuthRepoImpl(authRemote, tokens);
 
   runApp(RepositoryProvider.value(
       value: repo,

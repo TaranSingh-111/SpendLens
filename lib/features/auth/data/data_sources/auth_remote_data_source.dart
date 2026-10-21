@@ -43,12 +43,28 @@ class AuthRemoteDataSource {
   Future<T> _guard<T>(Future<T> Function() call) async{
     try{
       return await call();
-    }on DioException catch(e){
+    }on DioException catch(e) {
       final data = e.response?.data;
-      final message = data is Map ? data['message']?.toString() : null;
-      throw AuthException(
-          message ?? 'Something went wrong. Please try again.',
-          statusCode: e.response?.statusCode);
+      String? message;
+
+      if(data is Map){
+        message = data['message']?.toString() ?? data['error']?.toString();
+      }else if(data is String && data.isNotEmpty){
+        message = data;
+      }
+
+      if(message == null || message.isEmpty){
+        if(e.response?.statusCode == 401){
+          message = 'Invalid email or password.';
+        }else if(e.response?.statusCode == 403){
+          message = 'You do not have the permission to perform this action';
+        }else if(e.response == null){
+          message = 'Unable to connect to the server';
+        }else{
+          message = 'Something went wrong. Please try again.';
+        }
+      }
+      throw AuthException(message, statusCode: e.response?.statusCode);
     }
   }
 }
