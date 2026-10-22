@@ -12,7 +12,7 @@ _LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       refreshToken: json['refreshToken'] as String,
       tokenType: json['tokenType'] as String,
       expiresIn: (json['expiresIn'] as num).toInt(),
-      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LoginResponseToJson(_LoginResponse instance) =>

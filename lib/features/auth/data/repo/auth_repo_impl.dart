@@ -1,4 +1,5 @@
 import 'package:spend_lens/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:spend_lens/features/auth/data/models/user_model.dart';
 import 'package:spend_lens/features/auth/data/services/token_storage.dart';
 import 'package:spend_lens/features/auth/domain/repo/auth_repo.dart';
 
@@ -14,7 +15,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<User?> login(String email, String password) async {
     final res = await _remote.login(email, password);
     await _tokens.save(access: res.accessToken, refresh: res.refreshToken);
-    return res.user;
+    return res.user.toEntity();
   }
 
   @override
@@ -32,7 +33,7 @@ class AuthRepoImpl implements AuthRepo {
       //saves both replacement token
       await _tokens.save(access: res.accessToken, refresh: res.refreshToken);
 
-      return res.user;
+      return res.user.toEntity();
     } on AuthException {
       await _tokens.clear();
       return null;

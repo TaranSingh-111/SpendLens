@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LoginResponse {
 
- String get accessToken; String get refreshToken; String get tokenType; int get expiresIn; User get user;
+ String get accessToken; String get refreshToken; String get tokenType; int get expiresIn; UserModel get user;
 /// Create a copy of LoginResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $LoginResponseCopyWith<$Res>  {
   factory $LoginResponseCopyWith(LoginResponse value, $Res Function(LoginResponse) _then) = _$LoginResponseCopyWithImpl;
 @useResult
 $Res call({
- String accessToken, String refreshToken, String tokenType, int expiresIn, User user
+ String accessToken, String refreshToken, String tokenType, int expiresIn, UserModel user
 });
 
 
-$UserCopyWith<$Res> get user;
+$UserModelCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -72,16 +72,16 @@ as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken
 as String,tokenType: null == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: null == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
 as int,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User,
+as UserModel,
   ));
 }
 /// Create a copy of LoginResponse
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UserCopyWith<$Res> get user {
+$UserModelCopyWith<$Res> get user {
   
-  return $UserCopyWith<$Res>(_self.user, (value) {
+  return $UserModelCopyWith<$Res>(_self.user, (value) {
     return _then(_self.copyWith(user: value));
   });
 }
@@ -166,7 +166,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  User user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  UserModel user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoginResponse() when $default != null:
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn,_that.user);case _:
@@ -187,7 +187,7 @@ return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expir
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  User user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  UserModel user)  $default,) {final _that = this;
 switch (_that) {
 case _LoginResponse():
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn,_that.user);case _:
@@ -207,7 +207,7 @@ return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expir
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  User user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  UserModel user)?  $default,) {final _that = this;
 switch (_that) {
 case _LoginResponse() when $default != null:
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn,_that.user);case _:
@@ -229,7 +229,7 @@ class _LoginResponse implements LoginResponse {
 @override final  String refreshToken;
 @override final  String tokenType;
 @override final  int expiresIn;
-@override final  User user;
+@override final  UserModel user;
 
 /// Create a copy of LoginResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -264,11 +264,11 @@ abstract mixin class _$LoginResponseCopyWith<$Res> implements $LoginResponseCopy
   factory _$LoginResponseCopyWith(_LoginResponse value, $Res Function(_LoginResponse) _then) = __$LoginResponseCopyWithImpl;
 @override @useResult
 $Res call({
- String accessToken, String refreshToken, String tokenType, int expiresIn, User user
+ String accessToken, String refreshToken, String tokenType, int expiresIn, UserModel user
 });
 
 
-@override $UserCopyWith<$Res> get user;
+@override $UserModelCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -288,7 +288,7 @@ as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken
 as String,tokenType: null == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: null == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
 as int,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User,
+as UserModel,
   ));
 }
 
@@ -296,9 +296,9 @@ as User,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UserCopyWith<$Res> get user {
+$UserModelCopyWith<$Res> get user {
   
-  return $UserCopyWith<$Res>(_self.user, (value) {
+  return $UserModelCopyWith<$Res>(_self.user, (value) {
     return _then(_self.copyWith(user: value));
   });
 }

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../domain/entities/user.dart';
+import 'package:spend_lens/features/auth/data/models/user_model.dart';
 
 part 'login_response.freezed.dart';
 part 'login_response.g.dart';
@@ -11,7 +11,7 @@ abstract class LoginResponse with _$LoginResponse{
     required String refreshToken,
     required String tokenType,
     required int expiresIn,
-    required User user,
+    required UserModel user,
 
 }) = _LoginResponse;
 
