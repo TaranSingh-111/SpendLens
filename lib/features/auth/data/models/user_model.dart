@@ -21,3 +21,13 @@ extension UserModelMapper on UserModel {
     );
   }
 }
+
+extension UserEntityMapper on User {
+  UserModel toModel() {
+    return UserModel(
+      id: id,
+      email: email,
+      name: name,
+    );
+  }
+}

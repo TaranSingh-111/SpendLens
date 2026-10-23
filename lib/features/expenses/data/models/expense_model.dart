@@ -33,3 +33,16 @@ extension ExpenseModelMapper on ExpenseModel {
     );
   }
 }
+
+extension ExpenseEntityMapper on Expense{
+  ExpenseModel toModel(){
+    return ExpenseModel(
+      id: id,
+      expenseDate: expenseDate,
+      category: category,
+      amount: amount,
+      description: description,
+      user: user.toModel(),
+    );
+  }
+}
