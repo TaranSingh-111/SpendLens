@@ -1,6 +1,6 @@
 import '../entities/expense.dart';
 
-abstract class EntitiesRepo {
+abstract class ExpensesRepo {
   Future<List<Expense>> getAllExpenses();
   Future<Expense> getExpense(int id);
   Future<Expense> addExpense(Expense expense);

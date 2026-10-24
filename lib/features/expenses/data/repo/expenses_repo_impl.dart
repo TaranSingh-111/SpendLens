@@ -1,14 +1,14 @@
 import 'package:spend_lens/features/expenses/data/data_sources/expenses_remote_data_source.dart';
 import 'package:spend_lens/features/expenses/domain/entities/expense.dart';
-import 'package:spend_lens/features/expenses/domain/repo/entities_repo.dart';
+import 'package:spend_lens/features/expenses/domain/repo/expenses_repo.dart';
 
 import '../models/expense_model.dart';
 
-class EntitiesRepoImpl implements EntitiesRepo{
+class ExpensesRepoImpl implements ExpensesRepo{
 
   final ExpensesRemoteDataSource _remote;
 
-  EntitiesRepoImpl(this._remote);
+  ExpensesRepoImpl(this._remote);
 
   @override
   Future<Expense> addExpense(Expense expense) async{
