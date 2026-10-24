@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExpenseModel {
 
- int get id; DateTime get expenseDate; String get category; double get amount; String? get description; UserModel get user;
+ int get id;@JsonKey(name: 'expense_date') DateTime get expenseDate; String get category; double get amount; String? get description;
 /// Create a copy of ExpenseModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ExpenseModelCopyWith<ExpenseModel> get copyWith => _$ExpenseModelCopyWithImpl<E
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpenseModel&&(identical(other.id, id) || other.id == id)&&(identical(other.expenseDate, expenseDate) || other.expenseDate == expenseDate)&&(identical(other.category, category) || other.category == category)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpenseModel&&(identical(other.id, id) || other.id == id)&&(identical(other.expenseDate, expenseDate) || other.expenseDate == expenseDate)&&(identical(other.category, category) || other.category == category)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,expenseDate,category,amount,description,user);
+int get hashCode => Object.hash(runtimeType,id,expenseDate,category,amount,description);
 
 @override
 String toString() {
-  return 'ExpenseModel(id: $id, expenseDate: $expenseDate, category: $category, amount: $amount, description: $description, user: $user)';
+  return 'ExpenseModel(id: $id, expenseDate: $expenseDate, category: $category, amount: $amount, description: $description)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $ExpenseModelCopyWith<$Res>  {
   factory $ExpenseModelCopyWith(ExpenseModel value, $Res Function(ExpenseModel) _then) = _$ExpenseModelCopyWithImpl;
 @useResult
 $Res call({
- int id, DateTime expenseDate, String category, double amount, String? description, UserModel user
+ int id,@JsonKey(name: 'expense_date') DateTime expenseDate, String category, double amount, String? description
 });
 
 
-$UserModelCopyWith<$Res> get user;
+
 
 }
 /// @nodoc
@@ -65,27 +65,17 @@ class _$ExpenseModelCopyWithImpl<$Res>
 
 /// Create a copy of ExpenseModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? expenseDate = null,Object? category = null,Object? amount = null,Object? description = freezed,Object? user = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? expenseDate = null,Object? category = null,Object? amount = null,Object? description = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,expenseDate: null == expenseDate ? _self.expenseDate : expenseDate // ignore: cast_nullable_to_non_nullable
 as DateTime,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserModel,
+as String?,
   ));
 }
-/// Create a copy of ExpenseModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$UserModelCopyWith<$Res> get user {
-  
-  return $UserModelCopyWith<$Res>(_self.user, (value) {
-    return _then(_self.copyWith(user: value));
-  });
-}
+
 }
 
 
@@ -167,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  DateTime expenseDate,  String category,  double amount,  String? description,  UserModel user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExpenseModel() when $default != null:
-return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description,_that.user);case _:
+return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description);case _:
   return orElse();
 
 }
@@ -188,10 +178,10 @@ return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.des
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  DateTime expenseDate,  String category,  double amount,  String? description,  UserModel user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)  $default,) {final _that = this;
 switch (_that) {
 case _ExpenseModel():
-return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description,_that.user);case _:
+return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +198,10 @@ return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.des
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  DateTime expenseDate,  String category,  double amount,  String? description,  UserModel user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)?  $default,) {final _that = this;
 switch (_that) {
 case _ExpenseModel() when $default != null:
-return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description,_that.user);case _:
+return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description);case _:
   return null;
 
 }
@@ -223,15 +213,14 @@ return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.des
 @JsonSerializable()
 
 class _ExpenseModel implements ExpenseModel {
-  const _ExpenseModel({required this.id, required this.expenseDate, required this.category, required this.amount, this.description, required this.user});
+  const _ExpenseModel({required this.id, @JsonKey(name: 'expense_date') required this.expenseDate, required this.category, required this.amount, this.description});
   factory _ExpenseModel.fromJson(Map<String, dynamic> json) => _$ExpenseModelFromJson(json);
 
 @override final  int id;
-@override final  DateTime expenseDate;
+@override@JsonKey(name: 'expense_date') final  DateTime expenseDate;
 @override final  String category;
 @override final  double amount;
 @override final  String? description;
-@override final  UserModel user;
 
 /// Create a copy of ExpenseModel
 /// with the given fields replaced by the non-null parameter values.
@@ -246,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExpenseModel&&(identical(other.id, id) || other.id == id)&&(identical(other.expenseDate, expenseDate) || other.expenseDate == expenseDate)&&(identical(other.category, category) || other.category == category)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExpenseModel&&(identical(other.id, id) || other.id == id)&&(identical(other.expenseDate, expenseDate) || other.expenseDate == expenseDate)&&(identical(other.category, category) || other.category == category)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,expenseDate,category,amount,description,user);
+int get hashCode => Object.hash(runtimeType,id,expenseDate,category,amount,description);
 
 @override
 String toString() {
-  return 'ExpenseModel(id: $id, expenseDate: $expenseDate, category: $category, amount: $amount, description: $description, user: $user)';
+  return 'ExpenseModel(id: $id, expenseDate: $expenseDate, category: $category, amount: $amount, description: $description)';
 }
 
 
@@ -266,11 +255,11 @@ abstract mixin class _$ExpenseModelCopyWith<$Res> implements $ExpenseModelCopyWi
   factory _$ExpenseModelCopyWith(_ExpenseModel value, $Res Function(_ExpenseModel) _then) = __$ExpenseModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, DateTime expenseDate, String category, double amount, String? description, UserModel user
+ int id,@JsonKey(name: 'expense_date') DateTime expenseDate, String category, double amount, String? description
 });
 
 
-@override $UserModelCopyWith<$Res> get user;
+
 
 }
 /// @nodoc
@@ -283,28 +272,18 @@ class __$ExpenseModelCopyWithImpl<$Res>
 
 /// Create a copy of ExpenseModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? expenseDate = null,Object? category = null,Object? amount = null,Object? description = freezed,Object? user = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? expenseDate = null,Object? category = null,Object? amount = null,Object? description = freezed,}) {
   return _then(_ExpenseModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,expenseDate: null == expenseDate ? _self.expenseDate : expenseDate // ignore: cast_nullable_to_non_nullable
 as DateTime,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserModel,
+as String?,
   ));
 }
 
-/// Create a copy of ExpenseModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$UserModelCopyWith<$Res> get user {
-  
-  return $UserModelCopyWith<$Res>(_self.user, (value) {
-    return _then(_self.copyWith(user: value));
-  });
-}
+
 }
 
 // dart format on

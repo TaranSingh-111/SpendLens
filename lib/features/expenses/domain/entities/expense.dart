@@ -11,6 +11,5 @@ abstract class Expense with _$Expense {
     required String category,
     required double amount,
     String? description,
-    required User user,
   }) = _Expense;
 }

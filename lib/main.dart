@@ -5,6 +5,9 @@ import 'package:spend_lens/features/auth/data/data_sources/auth_remote_data_sour
 import 'package:spend_lens/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:spend_lens/features/auth/data/services/token_storage.dart';
 import 'package:spend_lens/features/auth/presentation/pages/auth_gate.dart';
+import 'package:spend_lens/features/expenses/data/data_sources/expenses_remote_data_source.dart';
+import 'package:spend_lens/features/expenses/data/repo/expenses_repo_impl.dart';
+import 'package:spend_lens/features/expenses/domain/repo/expenses_repo.dart';
 
 import 'core/network/auth_interceptor.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
@@ -28,14 +31,22 @@ void main() {
     dataSource: authRemote
   ));
   
-  final repo = AuthRepoImpl(authRemote, tokens);
+  final authRepo = AuthRepoImpl(authRemote, tokens);
 
-  runApp(RepositoryProvider.value(
-      value: repo,
-    child: BlocProvider(
-        create: (_) => AuthBloc(repo)..add(const AuthEvent.started()) ,
-      child: const MyApp(),
-    ),
+  //expenses
+  final expensesRemote = ExpensesRemoteDataSource(dio);
+  final expensesRepo = ExpensesRepoImpl(expensesRemote);
+
+  runApp(MultiBlocProvider(
+      providers: [
+        RepositoryProvider.value(value: authRepo),
+        RepositoryProvider<ExpensesRepo>.value(value: expensesRepo,),
+      ],
+      child: BlocProvider(
+          create: (_) => AuthBloc(authRepo)
+              ..add(const AuthEvent.started()),
+        child: const MyApp(),
+      )
   ));
 }
 

@@ -10,11 +10,11 @@ part 'expense_model.g.dart';
 abstract class ExpenseModel with _$ExpenseModel {
   const factory ExpenseModel({
     required int id,
+    @JsonKey(name: 'expense_date')
     required DateTime expenseDate,
     required String category,
     required double amount,
     String? description,
-    required UserModel user,
   }) = _ExpenseModel;
 
   factory ExpenseModel.fromJson(Map<String, dynamic> json) =>
@@ -29,7 +29,6 @@ extension ExpenseModelMapper on ExpenseModel {
       category: category,
       amount: amount,
       description: description,
-      user: user.toEntity(),
     );
   }
 }
@@ -42,7 +41,6 @@ extension ExpenseEntityMapper on Expense{
       category: category,
       amount: amount,
       description: description,
-      user: user.toModel(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:spend_lens/features/expenses/data/models/expense_model.dart';
 
 class ExpensesRemoteDataSource {
@@ -8,6 +9,7 @@ class ExpensesRemoteDataSource {
 
   Future<List<ExpenseModel>> getAllExpenses() => _guard(() async{
     final res = await _dio.get('/expenses');
+    debugPrint('API RESPONSE: ${res.data}');
 
     final List<dynamic> data = res.data;
 

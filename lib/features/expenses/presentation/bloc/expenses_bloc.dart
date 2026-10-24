@@ -20,64 +20,74 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
   }
 
   Future<void> _onLoadExpenses(LoadExpenses event, Emitter<ExpensesState> emit) async{
-    emit(state.copyWith(status: ExpenseStatus.loading));
+    emit(state.copyWith(listStatus: LoadStatus.loading));
 
     try{
       final expenses = await _expenseRepo.getAllExpenses();
 
       emit(state.copyWith(
-        status: ExpenseStatus.loaded,
+        listStatus: LoadStatus.success,
         expenses: expenses,
-        selectedExpense: null,
-        errorMessage: null,
+        listErrorMessage: null,
       ));
     } catch (e){
       emit(state.copyWith(
-        status: ExpenseStatus.error,
-        errorMessage: e.toString(),
+        listStatus: LoadStatus.error,
+        listErrorMessage: e.toString(),
       ));
     }
   }
 
   Future<void> _onLoadExpense(LoadExpense event, Emitter<ExpensesState> emit) async{
-    emit(state.copyWith(status: ExpenseStatus.loading));
+    emit(state.copyWith(detailStatus: LoadStatus.loading));
 
     try{
       final expense = await _expenseRepo.getExpense(event.id);
 
       emit(state.copyWith(
-        status: ExpenseStatus.detailLoaded,
+        detailStatus: LoadStatus.success,
         selectedExpense: expense,
-        errorMessage: null,
+        detailErrorMessage: null,
       ));
     } catch(e){
       emit(state.copyWith(
-        status: ExpenseStatus.error,
-        errorMessage: e.toString()
+        detailStatus: LoadStatus.error,
+        detailErrorMessage: e.toString()
       ));
     }
   }
 
   Future<void> _onAddExpense(AddExpense event, Emitter<ExpensesState> emit) async {
+    emit(state.copyWith(
+      operationStatus: OperationStatus.loading,
+      operationErrorMessage: null,
+      successMessage: null,
+    ));
+
     try{
       final newExpense = await _expenseRepo.addExpense(event.expense);
 
       emit(state.copyWith(
-        status: ExpenseStatus.operationSuccess,
+        operationStatus: OperationStatus.success,
         expenses: [...state.expenses, newExpense],
-        selectedExpense: null,
         successMessage: 'Expense added successfully',
-        errorMessage: null,
+        operationErrorMessage: null,
       ));
     }catch(e){
       emit(state.copyWith(
-        status: ExpenseStatus.error,
-        errorMessage: e.toString()
+        operationStatus: OperationStatus.error,
+        operationErrorMessage: e.toString()
       ));
     }
   }
 
   Future<void> _onUpdateExpense(UpdateExpense event, Emitter<ExpensesState> emit) async {
+    emit(state.copyWith(
+      operationStatus: OperationStatus.loading,
+      operationErrorMessage: null,
+      successMessage: null,
+    ));
+
     try{
       final updatedExpense = await _expenseRepo.updateExpense(event.id, event.expense);
 
@@ -86,21 +96,27 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
       }).toList();
 
       emit(state.copyWith(
-        status: ExpenseStatus.operationSuccess,
+        operationStatus: OperationStatus.success,
         expenses: updatedExpenses,
         selectedExpense: updatedExpense,
         successMessage: 'Expense updated successfully',
-        errorMessage: null,
+        operationErrorMessage: null,
       ));
     }catch(e){
       emit(state.copyWith(
-        status: ExpenseStatus.error,
-        errorMessage: e.toString()
+        operationStatus: OperationStatus.error,
+        operationErrorMessage: e.toString()
       ));
     }
   }
 
   Future<void> _onDeleteExpense(DeleteExpense event, Emitter<ExpensesState> emit) async {
+    emit(state.copyWith(
+      operationStatus: OperationStatus.loading,
+      operationErrorMessage: null,
+      successMessage: null,
+    ));
+
     try{
       await _expenseRepo.deleteExpense(event.id);
 
@@ -109,18 +125,18 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
           .toList();
 
       emit(state.copyWith(
-        status: ExpenseStatus.operationSuccess,
+        operationStatus: OperationStatus.success,
         expenses: updatedExpenses,
         selectedExpense: state.selectedExpense?.id == event.id
             ? null
             : state.selectedExpense,
         successMessage: 'Expense deleted successfully',
-        errorMessage: null,
+        operationErrorMessage: null,
       ));
     }catch(e){
       emit(state.copyWith(
-        status: ExpenseStatus.error,
-        errorMessage: e.toString()
+        operationStatus: OperationStatus.error,
+        operationErrorMessage: e.toString()
       ));
     }
   }
