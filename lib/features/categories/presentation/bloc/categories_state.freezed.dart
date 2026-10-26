@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CategoriesState {
 
- LoadStatus get status; List<Category> get categories; String? get errorMessage;
+ CategoriesStatus get status; List<Category> get categories; String? get errorMessage;
 /// Create a copy of CategoriesState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $CategoriesStateCopyWith<$Res>  {
   factory $CategoriesStateCopyWith(CategoriesState value, $Res Function(CategoriesState) _then) = _$CategoriesStateCopyWithImpl;
 @useResult
 $Res call({
- LoadStatus status, List<Category> categories, String? errorMessage
+ CategoriesStatus status, List<Category> categories, String? errorMessage
 });
 
 
@@ -65,7 +65,7 @@ class _$CategoriesStateCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? categories = null,Object? errorMessage = freezed,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as LoadStatus,categories: null == categories ? _self.categories : categories // ignore: cast_nullable_to_non_nullable
+as CategoriesStatus,categories: null == categories ? _self.categories : categories // ignore: cast_nullable_to_non_nullable
 as List<Category>,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -152,7 +152,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LoadStatus status,  List<Category> categories,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CategoriesStatus status,  List<Category> categories,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CategoriesState() when $default != null:
 return $default(_that.status,_that.categories,_that.errorMessage);case _:
@@ -173,7 +173,7 @@ return $default(_that.status,_that.categories,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LoadStatus status,  List<Category> categories,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CategoriesStatus status,  List<Category> categories,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _CategoriesState():
 return $default(_that.status,_that.categories,_that.errorMessage);case _:
@@ -193,7 +193,7 @@ return $default(_that.status,_that.categories,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LoadStatus status,  List<Category> categories,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CategoriesStatus status,  List<Category> categories,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _CategoriesState() when $default != null:
 return $default(_that.status,_that.categories,_that.errorMessage);case _:
@@ -208,10 +208,10 @@ return $default(_that.status,_that.categories,_that.errorMessage);case _:
 
 
 class _CategoriesState implements CategoriesState {
-  const _CategoriesState({this.status = LoadStatus.initial, final  List<Category> categories = const [], this.errorMessage}): _categories = categories;
+  const _CategoriesState({this.status = CategoriesStatus.initial, final  List<Category> categories = const [], this.errorMessage}): _categories = categories;
   
 
-@override@JsonKey() final  LoadStatus status;
+@override@JsonKey() final  CategoriesStatus status;
  final  List<Category> _categories;
 @override@JsonKey() List<Category> get categories {
   if (_categories is EqualUnmodifiableListView) return _categories;
@@ -251,7 +251,7 @@ abstract mixin class _$CategoriesStateCopyWith<$Res> implements $CategoriesState
   factory _$CategoriesStateCopyWith(_CategoriesState value, $Res Function(_CategoriesState) _then) = __$CategoriesStateCopyWithImpl;
 @override @useResult
 $Res call({
- LoadStatus status, List<Category> categories, String? errorMessage
+ CategoriesStatus status, List<Category> categories, String? errorMessage
 });
 
 
@@ -271,7 +271,7 @@ class __$CategoriesStateCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? categories = null,Object? errorMessage = freezed,}) {
   return _then(_CategoriesState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as LoadStatus,categories: null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
+as CategoriesStatus,categories: null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
 as List<Category>,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/repo/expenses_repo.dart';
@@ -73,7 +73,10 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
         successMessage: 'Expense added successfully',
         operationErrorMessage: null,
       ));
-    }catch(e){
+    }catch(e, stackTrace){
+      debugPrint('Add expense failed: $e');
+      debugPrintStack(stackTrace: stackTrace);
+
       emit(state.copyWith(
         operationStatus: OperationStatus.error,
         operationErrorMessage: e.toString()

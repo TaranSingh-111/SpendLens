@@ -9,7 +9,7 @@ part 'expense_model.g.dart';
 @freezed
 abstract class ExpenseModel with _$ExpenseModel {
   const factory ExpenseModel({
-    required int id,
+    required int? id,
     @JsonKey(name: 'expense_date')
     required DateTime expenseDate,
     required String category,

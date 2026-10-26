@@ -5,6 +5,9 @@ import 'package:spend_lens/features/auth/data/data_sources/auth_remote_data_sour
 import 'package:spend_lens/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:spend_lens/features/auth/data/services/token_storage.dart';
 import 'package:spend_lens/features/auth/presentation/pages/auth_gate.dart';
+import 'package:spend_lens/features/categories/data/data_sources/categories_remote_data_source.dart';
+import 'package:spend_lens/features/categories/data/repo/categories_repo_impl.dart';
+import 'package:spend_lens/features/categories/domain/repo/categories_repo.dart';
 import 'package:spend_lens/features/expenses/data/data_sources/expenses_remote_data_source.dart';
 import 'package:spend_lens/features/expenses/data/repo/expenses_repo_impl.dart';
 import 'package:spend_lens/features/expenses/domain/repo/expenses_repo.dart';
@@ -37,10 +40,15 @@ void main() {
   final expensesRemote = ExpensesRemoteDataSource(dio);
   final expensesRepo = ExpensesRepoImpl(expensesRemote);
 
+  //categories
+  final categoriesRemote = CategoriesRemoteDataSource(dio);
+  final categoriesRepo = CategoriesRepoImpl(categoriesRemote);
+
   runApp(MultiBlocProvider(
       providers: [
         RepositoryProvider.value(value: authRepo),
         RepositoryProvider<ExpensesRepo>.value(value: expensesRepo,),
+        RepositoryProvider<CategoriesRepo>.value(value: categoriesRepo,)
       ],
       child: BlocProvider(
           create: (_) => AuthBloc(authRepo)

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExpenseModel {
 
- int get id;@JsonKey(name: 'expense_date') DateTime get expenseDate; String get category; double get amount; String? get description;
+ int? get id;@JsonKey(name: 'expense_date') DateTime get expenseDate; String get category; double get amount; String? get description;
 /// Create a copy of ExpenseModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ExpenseModelCopyWith<$Res>  {
   factory $ExpenseModelCopyWith(ExpenseModel value, $Res Function(ExpenseModel) _then) = _$ExpenseModelCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'expense_date') DateTime expenseDate, String category, double amount, String? description
+ int? id,@JsonKey(name: 'expense_date') DateTime expenseDate, String category, double amount, String? description
 });
 
 
@@ -65,10 +65,10 @@ class _$ExpenseModelCopyWithImpl<$Res>
 
 /// Create a copy of ExpenseModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? expenseDate = null,Object? category = null,Object? amount = null,Object? description = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? expenseDate = null,Object? category = null,Object? amount = null,Object? description = freezed,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,expenseDate: null == expenseDate ? _self.expenseDate : expenseDate // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,expenseDate: null == expenseDate ? _self.expenseDate : expenseDate // ignore: cast_nullable_to_non_nullable
 as DateTime,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -157,7 +157,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExpenseModel() when $default != null:
 return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description);case _:
@@ -178,7 +178,7 @@ return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.des
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)  $default,) {final _that = this;
 switch (_that) {
 case _ExpenseModel():
 return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description);case _:
@@ -198,7 +198,7 @@ return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.des
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id, @JsonKey(name: 'expense_date')  DateTime expenseDate,  String category,  double amount,  String? description)?  $default,) {final _that = this;
 switch (_that) {
 case _ExpenseModel() when $default != null:
 return $default(_that.id,_that.expenseDate,_that.category,_that.amount,_that.description);case _:
@@ -216,7 +216,7 @@ class _ExpenseModel implements ExpenseModel {
   const _ExpenseModel({required this.id, @JsonKey(name: 'expense_date') required this.expenseDate, required this.category, required this.amount, this.description});
   factory _ExpenseModel.fromJson(Map<String, dynamic> json) => _$ExpenseModelFromJson(json);
 
-@override final  int id;
+@override final  int? id;
 @override@JsonKey(name: 'expense_date') final  DateTime expenseDate;
 @override final  String category;
 @override final  double amount;
@@ -255,7 +255,7 @@ abstract mixin class _$ExpenseModelCopyWith<$Res> implements $ExpenseModelCopyWi
   factory _$ExpenseModelCopyWith(_ExpenseModel value, $Res Function(_ExpenseModel) _then) = __$ExpenseModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'expense_date') DateTime expenseDate, String category, double amount, String? description
+ int? id,@JsonKey(name: 'expense_date') DateTime expenseDate, String category, double amount, String? description
 });
 
 
@@ -272,10 +272,10 @@ class __$ExpenseModelCopyWithImpl<$Res>
 
 /// Create a copy of ExpenseModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? expenseDate = null,Object? category = null,Object? amount = null,Object? description = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? expenseDate = null,Object? category = null,Object? amount = null,Object? description = freezed,}) {
   return _then(_ExpenseModel(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,expenseDate: null == expenseDate ? _self.expenseDate : expenseDate // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,expenseDate: null == expenseDate ? _self.expenseDate : expenseDate // ignore: cast_nullable_to_non_nullable
 as DateTime,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable

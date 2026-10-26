@@ -9,10 +9,10 @@ class CategoriesRemoteDataSource {
   Future<List<CategoryModel>> getCategories() => _guard(() async{
     final res = await _dio.get("/categories");
 
-    final List<dynamic> data= res.data;
+    final data = res.data as List<dynamic>;
 
-    return data.map((json) {
-      return CategoryModel.fromJson(Map<String, dynamic>.from(json as Map));
+    return data.map((item) {
+      return CategoryModel(name: item as String);
     }).toList();
   });
 

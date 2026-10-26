@@ -9,7 +9,6 @@ class ExpensesRemoteDataSource {
 
   Future<List<ExpenseModel>> getAllExpenses() => _guard(() async{
     final res = await _dio.get('/expenses');
-    debugPrint('API RESPONSE: ${res.data}');
 
     final List<dynamic> data = res.data;
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../expenses/presentation/pages/add_expense_page.dart';
+import '../../../expenses/presentation/pages/expense_form_page.dart';
 import '../../../expenses/presentation/pages/expenses_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +16,12 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = const [
     //HomeTab(),
     ExpensesPage(),
-    AddExpensePage(),
+    // Scaffold(
+    //   body: Center(
+    //     child: Text('Add Expense'),
+    //   ),
+    // ),
+    ExpenseFormPage(),
     //AnalyticsPage(),
     //ProfilePage(),
   ];

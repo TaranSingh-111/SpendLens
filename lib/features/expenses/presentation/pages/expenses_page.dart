@@ -54,15 +54,18 @@ class _ExpensesPageState extends State<ExpensesPage> {
                         trailing: Text('₹${expense.amount}'),
 
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => BlocProvider.value(
-                                  value: context.read<ExpensesBloc>(),
-                                child: ExpenseDetailsPage(expenseId: expense.id),
+                          if(expense.id != null) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    BlocProvider.value(
+                                      value: context.read<ExpensesBloc>(),
+                                      child: ExpenseDetailsPage(
+                                          expenseId: expense.id!),
+                                    ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                       );
                     }
