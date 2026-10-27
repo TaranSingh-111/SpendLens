@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:spend_lens/features/categories/presentation/bloc/categories_bloc.dart';
 import 'package:spend_lens/features/expenses/presentation/bloc/expenses_event.dart';
+import 'package:spend_lens/features/expenses/presentation/pages/expense_form_page.dart';
 
 import '../bloc/expenses_bloc.dart';
 import '../bloc/expenses_state.dart';
@@ -99,7 +103,27 @@ class _ExpenseDetailsPageState extends State<ExpenseDetailsPage> {
                       children: [
                         Expanded(
                           child: OutlinedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              final expense = state.selectedExpense;
+
+                              if(expense == null) return;
+
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (_) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider.value(
+                                              value: context.read<ExpensesBloc>(),
+                                          ),
+                                          BlocProvider.value(
+                                              value: context.read<CategoriesBloc>()
+                                          )
+                                        ],
+                                        child: ExpenseFormPage(expense: expense,)
+                                    ),
+                                )
+                              );
+                            },
                             icon: const Icon(Icons.edit_outlined),
                             label: const Text('Edit'),
                           ),

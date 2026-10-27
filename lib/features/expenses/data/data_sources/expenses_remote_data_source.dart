@@ -30,7 +30,9 @@ class ExpensesRemoteDataSource {
   });
 
   Future<ExpenseModel> updateExpense(int id, ExpenseModel expense) => _guard(() async{
-    final res = await _dio.put('/expenses/$id', data: expense.toJson());
+    final data = expense.toJson()
+          ..remove('id');
+    final res = await _dio.put('/expenses/$id', data: data);
 
     return ExpenseModel.fromJson(Map<String, dynamic>.from(res.data as Map));
   });

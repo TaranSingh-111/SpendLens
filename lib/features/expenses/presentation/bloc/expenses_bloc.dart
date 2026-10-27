@@ -73,10 +73,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
         successMessage: 'Expense added successfully',
         operationErrorMessage: null,
       ));
-    }catch(e, stackTrace){
-      debugPrint('Add expense failed: $e');
-      debugPrintStack(stackTrace: stackTrace);
-
+    }catch(e){
       emit(state.copyWith(
         operationStatus: OperationStatus.error,
         operationErrorMessage: e.toString()

@@ -81,7 +81,7 @@ class _ExpenseFormPageState extends State<ExpenseFormPage> {
       description: _descriptionController.text.trim().isEmpty
           ? null
           : _descriptionController.text.trim(),
-      id: null,
+      id: widget.expense?.id,
     );
 
     final bloc = context.read<ExpensesBloc>();
@@ -102,17 +102,17 @@ class _ExpenseFormPageState extends State<ExpenseFormPage> {
           previous.operationStatus != current.operationStatus,
       listener: (context, state) {
         if (state.operationStatus == OperationStatus.success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                state.successMessage ?? 'Expense added successfully',
-              ),
-            ),
-          );
-
           if(widget.isEditing){
             Navigator.of(context).pop();
           }else{
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  state.successMessage ?? 'Expense added successfully',
+                ),
+              ),
+            );
+
             _formKey.currentState!.reset();
             _amountController.clear();
             _descriptionController.clear();
