@@ -101,6 +101,7 @@ class _ExpenseDetailsPageState extends State<ExpenseDetailsPage> {
 
                     Row(
                       children: [
+                        //Edit button
                         Expanded(
                           child: OutlinedButton.icon(
                             onPressed: () {
@@ -129,9 +130,17 @@ class _ExpenseDetailsPageState extends State<ExpenseDetailsPage> {
                           ),
                         ),
                         SizedBox(width: 12),
+                        //Delete button
                         Expanded(
                           child: FilledButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              final expense = state.selectedExpense;
+
+                              if(expense == null) return;
+
+                              context.read<ExpensesBloc>().add(DeleteExpense(id: expense.id!));
+                              Navigator.of(context).pop();
+                            },
                             icon: const Icon(Icons.delete_outline),
                             label: const Text('Delete'),
                           ),
