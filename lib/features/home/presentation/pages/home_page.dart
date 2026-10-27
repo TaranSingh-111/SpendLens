@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spend_lens/features/dashboard/presentation/pages/dashboard_page.dart';
 
 import '../../../expenses/presentation/pages/expense_form_page.dart';
 import '../../../expenses/presentation/pages/expenses_page.dart';
@@ -14,13 +15,8 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = const [
-    //HomeTab(),
+    DashboardPage(),
     ExpensesPage(),
-    // Scaffold(
-    //   body: Center(
-    //     child: Text('Add Expense'),
-    //   ),
-    // ),
     ExpenseFormPage(),
     //AnalyticsPage(),
     //ProfilePage(),
@@ -41,11 +37,11 @@ class _HomePageState extends State<HomePage> {
           });
         },
         destinations: const [
-          // NavigationDestination(
-          //   icon: Icon(Icons.home_outlined),
-          //   selectedIcon: Icon(Icons.home),
-          //   label: 'Home',
-          // ),
+          NavigationDestination(
+            icon: Icon(Icons.dashboard_outlined),
+            selectedIcon: Icon(Icons.dashboard),
+            label: 'Dashboard',
+          ),
           NavigationDestination(
             icon: Icon(Icons.receipt_long_outlined),
             selectedIcon: Icon(Icons.receipt_long),
