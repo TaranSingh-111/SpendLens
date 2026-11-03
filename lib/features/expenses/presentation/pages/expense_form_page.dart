@@ -116,12 +116,12 @@ class _ExpenseFormPageState extends State<ExpenseFormPage> {
             _formKey.currentState!.reset();
             _amountController.clear();
             _descriptionController.clear();
-            _categoryController.clear();
+            //_categoryController.clear();
 
-            setState(() {
-              _selectedDate = DateTime.now();
-              _isCustomCategory = false;
-            });
+            // setState(() {
+            //   _selectedDate = DateTime.now();
+            //   _isCustomCategory = false;
+            // });
           }
         } else if (state.operationStatus == OperationStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
