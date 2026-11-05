@@ -8,6 +8,6 @@ abstract class Budget with _$Budget{
     required int id,
     required int year,
     required int month,
-    required int amount
+    required double amount
 }) = _Budget;
 }

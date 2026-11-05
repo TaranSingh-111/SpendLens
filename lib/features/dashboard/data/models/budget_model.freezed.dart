@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BudgetModel {
 
- int get id; int get year; int get month; int get amount;
+ int get id; int get year; int get month; double get amount;
 /// Create a copy of BudgetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $BudgetModelCopyWith<$Res>  {
   factory $BudgetModelCopyWith(BudgetModel value, $Res Function(BudgetModel) _then) = _$BudgetModelCopyWithImpl;
 @useResult
 $Res call({
- int id, int year, int month, int amount
+ int id, int year, int month, double amount
 });
 
 
@@ -71,7 +71,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,year: null == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
 as int,month: null == month ? _self.month : month // ignore: cast_nullable_to_non_nullable
 as int,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as int,
+as double,
   ));
 }
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int year,  int month,  int amount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int year,  int month,  double amount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BudgetModel() when $default != null:
 return $default(_that.id,_that.year,_that.month,_that.amount);case _:
@@ -177,7 +177,7 @@ return $default(_that.id,_that.year,_that.month,_that.amount);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int year,  int month,  int amount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int year,  int month,  double amount)  $default,) {final _that = this;
 switch (_that) {
 case _BudgetModel():
 return $default(_that.id,_that.year,_that.month,_that.amount);case _:
@@ -197,7 +197,7 @@ return $default(_that.id,_that.year,_that.month,_that.amount);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int year,  int month,  int amount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int year,  int month,  double amount)?  $default,) {final _that = this;
 switch (_that) {
 case _BudgetModel() when $default != null:
 return $default(_that.id,_that.year,_that.month,_that.amount);case _:
@@ -218,7 +218,7 @@ class _BudgetModel implements BudgetModel {
 @override final  int id;
 @override final  int year;
 @override final  int month;
-@override final  int amount;
+@override final  double amount;
 
 /// Create a copy of BudgetModel
 /// with the given fields replaced by the non-null parameter values.
@@ -253,7 +253,7 @@ abstract mixin class _$BudgetModelCopyWith<$Res> implements $BudgetModelCopyWith
   factory _$BudgetModelCopyWith(_BudgetModel value, $Res Function(_BudgetModel) _then) = __$BudgetModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int year, int month, int amount
+ int id, int year, int month, double amount
 });
 
 
@@ -276,7 +276,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,year: null == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
 as int,month: null == month ? _self.month : month // ignore: cast_nullable_to_non_nullable
 as int,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as int,
+as double,
   ));
 }
 

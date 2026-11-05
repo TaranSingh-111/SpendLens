@@ -10,7 +10,7 @@ _BudgetModel _$BudgetModelFromJson(Map<String, dynamic> json) => _BudgetModel(
   id: (json['id'] as num).toInt(),
   year: (json['year'] as num).toInt(),
   month: (json['month'] as num).toInt(),
-  amount: (json['amount'] as num).toInt(),
+  amount: (json['amount'] as num).toDouble(),
 );
 
 Map<String, dynamic> _$BudgetModelToJson(_BudgetModel instance) =>

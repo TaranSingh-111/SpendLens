@@ -10,7 +10,7 @@ abstract class BudgetModel with _$BudgetModel {
     required int id,
     required int year,
     required int month,
-    required int amount,
+    required double amount,
   }) = _BudgetModel;
 
   factory BudgetModel.fromJson(Map<String, dynamic> json) =>
