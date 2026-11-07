@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spend_lens/features/dashboard/domain/repo/budget_repo.dart';
+import 'package:spend_lens/features/budget/domain/repo/budget_repo.dart';
 
 import '../../data/data_sources/budget_remote_data_source.dart';
 import 'budget_event.dart';

@@ -1,7 +1,7 @@
-import 'package:spend_lens/features/dashboard/data/data_sources/budget_remote_data_source.dart';
-import 'package:spend_lens/features/dashboard/data/models/budget_model.dart';
-import 'package:spend_lens/features/dashboard/domain/entities/budget.dart';
-import 'package:spend_lens/features/dashboard/domain/repo/budget_repo.dart';
+import 'package:spend_lens/features/budget/data/data_sources/budget_remote_data_source.dart';
+import 'package:spend_lens/features/budget/data/models/budget_model.dart';
+import 'package:spend_lens/features/budget/domain/entities/budget.dart';
+import 'package:spend_lens/features/budget/domain/repo/budget_repo.dart';
 
 class BudgetRepoImpl implements BudgetRepo{
 

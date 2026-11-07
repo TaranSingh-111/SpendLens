@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spend_lens/features/dashboard/domain/entities/budget.dart';
-import 'package:spend_lens/features/dashboard/presentation/bloc/budget_state.dart';
+import 'package:spend_lens/features/budget/domain/entities/budget.dart';
+import 'package:spend_lens/features/budget/presentation/bloc/budget_state.dart';
 import 'package:spend_lens/features/dashboard/presentation/widgets/spending_card.dart';
 import 'package:spend_lens/features/dashboard/util/calculate_monthly_spending.dart';
 import 'package:spend_lens/features/expenses/presentation/bloc/expenses_bloc.dart';
 
+import '../../../budget/presentation/bloc/budget_bloc.dart';
+import '../../../budget/presentation/bloc/budget_event.dart';
 import '../../../expenses/presentation/bloc/expenses_state.dart';
-import '../bloc/budget_bloc.dart';
-import '../bloc/budget_event.dart';
+
 import '../widgets/budget_dialog.dart';
 
 class DashboardPage extends StatefulWidget {

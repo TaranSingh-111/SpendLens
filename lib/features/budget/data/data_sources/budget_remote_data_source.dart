@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:spend_lens/features/dashboard/data/models/budget_model.dart';
+import 'package:spend_lens/features/budget/data/models/budget_model.dart';
 
 class BudgetRemoteDataSource {
   final Dio _dio;

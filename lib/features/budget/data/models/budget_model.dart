@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spend_lens/features/dashboard/domain/entities/budget.dart';
+import 'package:spend_lens/features/budget/domain/entities/budget.dart';
 
 part 'budget_model.freezed.dart';
 part 'budget_model.g.dart';

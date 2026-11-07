@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/budget_bloc.dart';
-import '../bloc/budget_event.dart';
+import '../../../budget/presentation/bloc/budget_bloc.dart';
+import '../../../budget/presentation/bloc/budget_event.dart';
 
 class BudgetDialog extends StatefulWidget {
   const BudgetDialog({super.key});

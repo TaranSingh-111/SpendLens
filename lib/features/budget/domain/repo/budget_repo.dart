@@ -1,6 +1,6 @@
 import 'dart:ffi';
 
-import 'package:spend_lens/features/dashboard/domain/entities/budget.dart';
+import 'package:spend_lens/features/budget/domain/entities/budget.dart';
 
 abstract class BudgetRepo {
   Future<Budget> getBudget(int year, int month);
