@@ -4,11 +4,13 @@ import 'package:intl/intl.dart';
 class SpendingCard extends StatelessWidget {
   final double monthlySpending;
   final double monthlyBudget;
+  final VoidCallback onSetBudget;
 
   const SpendingCard({
     super.key,
     required this.monthlySpending,
     required this.monthlyBudget,
+    required this.onSetBudget,
   });
 
   @override
@@ -57,9 +59,23 @@ class SpendingCard extends StatelessWidget {
 
             const SizedBox(height: 6),
 
-            Text(
-              'of ${currencyFormat.format(monthlyBudget)} budget',
-              style: theme.textTheme.bodyMedium,
+            Row(
+              children: [
+                Text(
+                  'of ${currencyFormat.format(monthlyBudget)} budget',
+                  style: theme.textTheme.bodyMedium,
+                ),
+
+
+                const SizedBox(height: 20),
+
+                IconButton(
+                  onPressed: onSetBudget,
+                  icon: Icon(Icons.edit, size: 18, color: colorScheme.primary),
+                  tooltip: 'Edit budget',
+                  visualDensity: VisualDensity.compact,
+                ),
+              ],
             ),
 
             const SizedBox(height: 20),

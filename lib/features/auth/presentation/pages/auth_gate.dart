@@ -5,6 +5,8 @@ import 'package:spend_lens/features/auth/presentation/bloc/auth_state.dart';
 import 'package:spend_lens/features/auth/presentation/pages/login_page.dart';
 import 'package:spend_lens/features/categories/presentation/bloc/categories_bloc.dart';
 import 'package:spend_lens/features/categories/presentation/bloc/categories_event.dart';
+import 'package:spend_lens/features/dashboard/domain/repo/budget_repo.dart';
+import 'package:spend_lens/features/dashboard/presentation/bloc/budget_bloc.dart';
 import 'package:spend_lens/features/expenses/domain/repo/expenses_repo.dart';
 import 'package:spend_lens/features/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:spend_lens/features/expenses/presentation/bloc/expenses_event.dart';
@@ -51,6 +53,11 @@ class _AuthGateState extends State<AuthGate> {
                   create: (context) => CategoriesBloc(
                       categoriesRepo: context.read<CategoriesRepo>()
                   )..add(LoadCategories()),
+                ),
+                BlocProvider<BudgetBloc>(
+                  create: (context) => BudgetBloc(
+                      budgetRepo: context.read<BudgetRepo>()
+                  ),
                 )
               ],
               child: const HomePage(),

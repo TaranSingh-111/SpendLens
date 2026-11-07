@@ -7,6 +7,7 @@ class BudgetRemoteDataSource {
   BudgetRemoteDataSource(this._dio);
 
   Future<BudgetModel> getBudget(int year, int month) => _guard(() async{
+
     final res = await _dio.get(
       '/budgets',
       queryParameters: {'year': year, 'month': month}
@@ -18,7 +19,7 @@ class BudgetRemoteDataSource {
   Future<BudgetModel> saveBudget(double amount) => _guard(() async{
     final res = await _dio.put(
         '/budgets/current',
-        data: amount,
+        data: {'amount': amount},
     );
 
     return BudgetModel.fromJson(res.data);
