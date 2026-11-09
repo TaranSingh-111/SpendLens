@@ -8,9 +8,13 @@ import 'package:spend_lens/features/expenses/presentation/bloc/expenses_bloc.dar
 
 import '../../../budget/presentation/bloc/budget_bloc.dart';
 import '../../../budget/presentation/bloc/budget_event.dart';
+import '../../../categories/presentation/bloc/categories_bloc.dart';
+import '../../../categories/presentation/bloc/categories_event.dart';
+import '../../../categories/presentation/bloc/categories_state.dart';
 import '../../../expenses/presentation/bloc/expenses_state.dart';
 
 import '../widgets/budget_dialog.dart';
+import '../widgets/category_spending_grid.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -20,13 +24,21 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
+    final now = DateTime.now();
+
     context.read<BudgetBloc>().add(
-      BudgetEvent.loadBudget(year: DateTime.now().year, month: DateTime.now().month),
+      BudgetEvent.loadBudget(year: now.year, month: now.month),
+    );
+
+    context.read<CategoriesBloc>().add(
+      CategoriesEvent.loadCategoriesTotal(
+          startDate: DateTime(now.year, now.month, 1),
+          endDate: DateTime(now.year, now.month + 1, 1)
+      )
     );
   }
 
@@ -40,24 +52,49 @@ class _DashboardPageState extends State<DashboardPage> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final monthlySpending = calculateMonthlySpending(expenseState.expenses);
+          final monthlySpending = calculateMonthlySpending(
+            expenseState.expenses,
+          );
 
-          return BlocBuilder<BudgetBloc, BudgetState>(
-              builder: (context, budgetState){
-                if(budgetState.loadStatus == BudgetLoadStatus.loading){
-                  return const Center(child: CircularProgressIndicator(),);
-                }
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //budget card
+                BlocBuilder<BudgetBloc, BudgetState>(
+                  builder: (context, budgetState) {
+                    if (budgetState.loadStatus == BudgetLoadStatus.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                final monthlyBudget = budgetState.budget?.amount ?? 0.0;
+                    final monthlyBudget = budgetState.budget?.amount ?? 0.0;
 
+                    return SpendingCard(
+                      monthlySpending: monthlySpending,
+                      monthlyBudget: monthlyBudget,
+                      onSetBudget: _showBudgetDialog,
+                    );
+                  },
+                ),
 
-                return SpendingCard(
-                  monthlySpending: monthlySpending,
-                  monthlyBudget: monthlyBudget,
-                  onSetBudget: _showBudgetDialog,
-                );
-              }
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  child: Text(
+                    'Category Spending',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
 
+                // Category spending cards
+                BlocBuilder<CategoriesBloc, CategoriesState>(
+                  builder: (context, categoryState) {
+                    return CategorySpendingGrid(
+                      totals: categoryState.categoryTotals,
+                    );
+                  },
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -68,8 +105,8 @@ class _DashboardPageState extends State<DashboardPage> {
     showDialog(
       context: context,
       builder: (_) => BlocProvider.value(
-          value: context.read<BudgetBloc>(),
-          child: const BudgetDialog(),
+        value: context.read<BudgetBloc>(),
+        child: const BudgetDialog(),
       ),
     );
   }
