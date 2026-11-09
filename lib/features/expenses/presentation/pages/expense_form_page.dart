@@ -102,6 +102,17 @@ class _ExpenseFormPageState extends State<ExpenseFormPage> {
           previous.operationStatus != current.operationStatus,
       listener: (context, state) {
         if (state.operationStatus == OperationStatus.success) {
+          final now = DateTime.now();
+
+          context.read<CategoriesBloc>().add(const LoadCategories());
+
+          context.read<CategoriesBloc>().add(
+              CategoriesEvent.loadCategoriesTotal(
+                  startDate: DateTime(now.year, now.month, 1),
+                  endDate: DateTime(now.year, now.month + 1, 1)
+              )
+          );
+
           if(widget.isEditing){
             Navigator.of(context).pop();
           }else{
