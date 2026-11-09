@@ -55,11 +55,12 @@ extension CategoriesEventPatterns on CategoriesEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadCategories value)?  loadCategories,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadCategories value)?  loadCategories,TResult Function( LoadCategoriesTotal value)?  loadCategoriesTotal,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case LoadCategories() when loadCategories != null:
-return loadCategories(_that);case _:
+return loadCategories(_that);case LoadCategoriesTotal() when loadCategoriesTotal != null:
+return loadCategoriesTotal(_that);case _:
   return orElse();
 
 }
@@ -77,11 +78,12 @@ return loadCategories(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadCategories value)  loadCategories,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadCategories value)  loadCategories,required TResult Function( LoadCategoriesTotal value)  loadCategoriesTotal,}){
 final _that = this;
 switch (_that) {
 case LoadCategories():
-return loadCategories(_that);}
+return loadCategories(_that);case LoadCategoriesTotal():
+return loadCategoriesTotal(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -95,11 +97,12 @@ return loadCategories(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadCategories value)?  loadCategories,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadCategories value)?  loadCategories,TResult? Function( LoadCategoriesTotal value)?  loadCategoriesTotal,}){
 final _that = this;
 switch (_that) {
 case LoadCategories() when loadCategories != null:
-return loadCategories(_that);case _:
+return loadCategories(_that);case LoadCategoriesTotal() when loadCategoriesTotal != null:
+return loadCategoriesTotal(_that);case _:
   return null;
 
 }
@@ -116,10 +119,11 @@ return loadCategories(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadCategories,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadCategories,TResult Function( DateTime startDate,  DateTime endDate)?  loadCategoriesTotal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LoadCategories() when loadCategories != null:
-return loadCategories();case _:
+return loadCategories();case LoadCategoriesTotal() when loadCategoriesTotal != null:
+return loadCategoriesTotal(_that.startDate,_that.endDate);case _:
   return orElse();
 
 }
@@ -137,10 +141,11 @@ return loadCategories();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadCategories,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadCategories,required TResult Function( DateTime startDate,  DateTime endDate)  loadCategoriesTotal,}) {final _that = this;
 switch (_that) {
 case LoadCategories():
-return loadCategories();}
+return loadCategories();case LoadCategoriesTotal():
+return loadCategoriesTotal(_that.startDate,_that.endDate);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -154,10 +159,11 @@ return loadCategories();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadCategories,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadCategories,TResult? Function( DateTime startDate,  DateTime endDate)?  loadCategoriesTotal,}) {final _that = this;
 switch (_that) {
 case LoadCategories() when loadCategories != null:
-return loadCategories();case _:
+return loadCategories();case LoadCategoriesTotal() when loadCategoriesTotal != null:
+return loadCategoriesTotal(_that.startDate,_that.endDate);case _:
   return null;
 
 }
@@ -196,5 +202,73 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class LoadCategoriesTotal implements CategoriesEvent {
+  const LoadCategoriesTotal({required this.startDate, required this.endDate});
+  
+
+ final  DateTime startDate;
+ final  DateTime endDate;
+
+/// Create a copy of CategoriesEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadCategoriesTotalCopyWith<LoadCategoriesTotal> get copyWith => _$LoadCategoriesTotalCopyWithImpl<LoadCategoriesTotal>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadCategoriesTotal&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,startDate,endDate);
+
+@override
+String toString() {
+  return 'CategoriesEvent.loadCategoriesTotal(startDate: $startDate, endDate: $endDate)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoadCategoriesTotalCopyWith<$Res> implements $CategoriesEventCopyWith<$Res> {
+  factory $LoadCategoriesTotalCopyWith(LoadCategoriesTotal value, $Res Function(LoadCategoriesTotal) _then) = _$LoadCategoriesTotalCopyWithImpl;
+@useResult
+$Res call({
+ DateTime startDate, DateTime endDate
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadCategoriesTotalCopyWithImpl<$Res>
+    implements $LoadCategoriesTotalCopyWith<$Res> {
+  _$LoadCategoriesTotalCopyWithImpl(this._self, this._then);
+
+  final LoadCategoriesTotal _self;
+  final $Res Function(LoadCategoriesTotal) _then;
+
+/// Create a copy of CategoriesEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? startDate = null,Object? endDate = null,}) {
+  return _then(LoadCategoriesTotal(
+startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
+as DateTime,endDate: null == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
+}
 
 // dart format on

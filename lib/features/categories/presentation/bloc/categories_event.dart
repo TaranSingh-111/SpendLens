@@ -5,4 +5,8 @@ part 'categories_event.freezed.dart';
 @freezed
 sealed class CategoriesEvent with _$CategoriesEvent {
   const factory CategoriesEvent.loadCategories() = LoadCategories;
+  const factory CategoriesEvent.loadCategoriesTotal({
+    required DateTime startDate,
+    required DateTime endDate,
+}) = LoadCategoriesTotal;
 }

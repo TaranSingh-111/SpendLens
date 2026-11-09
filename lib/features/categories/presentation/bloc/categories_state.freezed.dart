@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CategoriesState {
 
- CategoriesStatus get status; List<Category> get categories; String? get errorMessage;
+ CategoriesStatus get status; CategoriesStatus get totalStatus; List<Category> get categories; Map<String, double> get categoryTotals; String? get errorMessage;
 /// Create a copy of CategoriesState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CategoriesStateCopyWith<CategoriesState> get copyWith => _$CategoriesStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoriesState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoriesState&&(identical(other.status, status) || other.status == status)&&(identical(other.totalStatus, totalStatus) || other.totalStatus == totalStatus)&&const DeepCollectionEquality().equals(other.categories, categories)&&const DeepCollectionEquality().equals(other.categoryTotals, categoryTotals)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(categories),errorMessage);
+int get hashCode => Object.hash(runtimeType,status,totalStatus,const DeepCollectionEquality().hash(categories),const DeepCollectionEquality().hash(categoryTotals),errorMessage);
 
 @override
 String toString() {
-  return 'CategoriesState(status: $status, categories: $categories, errorMessage: $errorMessage)';
+  return 'CategoriesState(status: $status, totalStatus: $totalStatus, categories: $categories, categoryTotals: $categoryTotals, errorMessage: $errorMessage)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CategoriesStateCopyWith<$Res>  {
   factory $CategoriesStateCopyWith(CategoriesState value, $Res Function(CategoriesState) _then) = _$CategoriesStateCopyWithImpl;
 @useResult
 $Res call({
- CategoriesStatus status, List<Category> categories, String? errorMessage
+ CategoriesStatus status, CategoriesStatus totalStatus, List<Category> categories, Map<String, double> categoryTotals, String? errorMessage
 });
 
 
@@ -62,11 +62,13 @@ class _$CategoriesStateCopyWithImpl<$Res>
 
 /// Create a copy of CategoriesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? categories = null,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? totalStatus = null,Object? categories = null,Object? categoryTotals = null,Object? errorMessage = freezed,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as CategoriesStatus,totalStatus: null == totalStatus ? _self.totalStatus : totalStatus // ignore: cast_nullable_to_non_nullable
 as CategoriesStatus,categories: null == categories ? _self.categories : categories // ignore: cast_nullable_to_non_nullable
-as List<Category>,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as List<Category>,categoryTotals: null == categoryTotals ? _self.categoryTotals : categoryTotals // ignore: cast_nullable_to_non_nullable
+as Map<String, double>,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -152,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CategoriesStatus status,  List<Category> categories,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CategoriesStatus status,  CategoriesStatus totalStatus,  List<Category> categories,  Map<String, double> categoryTotals,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CategoriesState() when $default != null:
-return $default(_that.status,_that.categories,_that.errorMessage);case _:
+return $default(_that.status,_that.totalStatus,_that.categories,_that.categoryTotals,_that.errorMessage);case _:
   return orElse();
 
 }
@@ -173,10 +175,10 @@ return $default(_that.status,_that.categories,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CategoriesStatus status,  List<Category> categories,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CategoriesStatus status,  CategoriesStatus totalStatus,  List<Category> categories,  Map<String, double> categoryTotals,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _CategoriesState():
-return $default(_that.status,_that.categories,_that.errorMessage);case _:
+return $default(_that.status,_that.totalStatus,_that.categories,_that.categoryTotals,_that.errorMessage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +195,10 @@ return $default(_that.status,_that.categories,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CategoriesStatus status,  List<Category> categories,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CategoriesStatus status,  CategoriesStatus totalStatus,  List<Category> categories,  Map<String, double> categoryTotals,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _CategoriesState() when $default != null:
-return $default(_that.status,_that.categories,_that.errorMessage);case _:
+return $default(_that.status,_that.totalStatus,_that.categories,_that.categoryTotals,_that.errorMessage);case _:
   return null;
 
 }
@@ -208,15 +210,23 @@ return $default(_that.status,_that.categories,_that.errorMessage);case _:
 
 
 class _CategoriesState implements CategoriesState {
-  const _CategoriesState({this.status = CategoriesStatus.initial, final  List<Category> categories = const [], this.errorMessage}): _categories = categories;
+  const _CategoriesState({this.status = CategoriesStatus.initial, this.totalStatus = CategoriesStatus.initial, final  List<Category> categories = const [], final  Map<String, double> categoryTotals = const {}, this.errorMessage}): _categories = categories,_categoryTotals = categoryTotals;
   
 
 @override@JsonKey() final  CategoriesStatus status;
+@override@JsonKey() final  CategoriesStatus totalStatus;
  final  List<Category> _categories;
 @override@JsonKey() List<Category> get categories {
   if (_categories is EqualUnmodifiableListView) return _categories;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_categories);
+}
+
+ final  Map<String, double> _categoryTotals;
+@override@JsonKey() Map<String, double> get categoryTotals {
+  if (_categoryTotals is EqualUnmodifiableMapView) return _categoryTotals;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_categoryTotals);
 }
 
 @override final  String? errorMessage;
@@ -231,16 +241,16 @@ _$CategoriesStateCopyWith<_CategoriesState> get copyWith => __$CategoriesStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoriesState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoriesState&&(identical(other.status, status) || other.status == status)&&(identical(other.totalStatus, totalStatus) || other.totalStatus == totalStatus)&&const DeepCollectionEquality().equals(other._categories, _categories)&&const DeepCollectionEquality().equals(other._categoryTotals, _categoryTotals)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_categories),errorMessage);
+int get hashCode => Object.hash(runtimeType,status,totalStatus,const DeepCollectionEquality().hash(_categories),const DeepCollectionEquality().hash(_categoryTotals),errorMessage);
 
 @override
 String toString() {
-  return 'CategoriesState(status: $status, categories: $categories, errorMessage: $errorMessage)';
+  return 'CategoriesState(status: $status, totalStatus: $totalStatus, categories: $categories, categoryTotals: $categoryTotals, errorMessage: $errorMessage)';
 }
 
 
@@ -251,7 +261,7 @@ abstract mixin class _$CategoriesStateCopyWith<$Res> implements $CategoriesState
   factory _$CategoriesStateCopyWith(_CategoriesState value, $Res Function(_CategoriesState) _then) = __$CategoriesStateCopyWithImpl;
 @override @useResult
 $Res call({
- CategoriesStatus status, List<Category> categories, String? errorMessage
+ CategoriesStatus status, CategoriesStatus totalStatus, List<Category> categories, Map<String, double> categoryTotals, String? errorMessage
 });
 
 
@@ -268,11 +278,13 @@ class __$CategoriesStateCopyWithImpl<$Res>
 
 /// Create a copy of CategoriesState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? categories = null,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? totalStatus = null,Object? categories = null,Object? categoryTotals = null,Object? errorMessage = freezed,}) {
   return _then(_CategoriesState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as CategoriesStatus,totalStatus: null == totalStatus ? _self.totalStatus : totalStatus // ignore: cast_nullable_to_non_nullable
 as CategoriesStatus,categories: null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
-as List<Category>,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as List<Category>,categoryTotals: null == categoryTotals ? _self._categoryTotals : categoryTotals // ignore: cast_nullable_to_non_nullable
+as Map<String, double>,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

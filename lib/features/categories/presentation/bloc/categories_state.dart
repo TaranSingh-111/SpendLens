@@ -11,8 +11,13 @@ abstract class CategoriesState with _$CategoriesState{
     @Default(CategoriesStatus.initial)
     CategoriesStatus status,
 
+    @Default(CategoriesStatus.initial)
+    CategoriesStatus totalStatus,
+
     @Default([])
     List<Category> categories,
+
+    @Default({}) Map<String, double> categoryTotals,
 
     String? errorMessage,
 }) = _CategoriesState;

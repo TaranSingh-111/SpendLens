@@ -14,6 +14,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   CategoriesBloc({required this._categoriesRepo})
       : super(const CategoriesState()) {
     on<LoadCategories>(_onLoadCategories);
+    on<LoadCategoriesTotal>(_onLoadCategoriesTotal);
   }
 
   Future<void> _onLoadCategories(LoadCategories event, Emitter<CategoriesState> emit) async {
@@ -31,6 +32,27 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       emit(state.copyWith(
         status: CategoriesStatus.error,
         errorMessage: 'Failed to fetch categories',
+      ));
+    }
+  }
+
+  Future<void> _onLoadCategoriesTotal(LoadCategoriesTotal event, Emitter<CategoriesState> emit) async {
+    print('-----event triggered');
+    emit(state.copyWith(totalStatus: CategoriesStatus.loading));
+
+    try{
+      final totals = await _categoriesRepo.getCategoriesTotal(startDate: event.startDate, endDate: event.endDate);
+      print('---------${totals.length}');
+      emit(state.copyWith(
+        totalStatus: CategoriesStatus.success,
+        categoryTotals: totals,
+        errorMessage: null,
+      ));
+    }catch (e){
+      print(e);
+      emit(state.copyWith(
+        totalStatus: CategoriesStatus.error,
+        errorMessage: 'Failed to fetch category total'
       ));
     }
   }

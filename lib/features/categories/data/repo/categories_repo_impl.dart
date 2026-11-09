@@ -16,4 +16,9 @@ class CategoriesRepoImpl implements CategoriesRepo{
 
     return models.map((model) => model.toEntity()).toList();
   }
+
+  @override
+  Future<Map<String, double>> getCategoriesTotal({required DateTime startDate, required DateTime endDate}) async {
+    return await _remote.getCategoriesTotal(startDate: startDate, endDate: endDate);
+  }
 }

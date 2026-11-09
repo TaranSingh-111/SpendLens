@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:spend_lens/features/categories/data/models/category_model.dart';
 
 class CategoriesRemoteDataSource {
@@ -14,6 +15,28 @@ class CategoriesRemoteDataSource {
     return data.map((item) {
       return CategoryModel(name: item as String);
     }).toList();
+  });
+  
+  Future<Map<String, double>> getCategoriesTotal({
+    required DateTime startDate,
+    required DateTime endDate,
+}) => _guard(() async {
+
+    final res = await _dio.get(
+        '/expenses/total/category/all',
+        queryParameters: {
+          'startDate': DateFormat('yyyy-MM-dd').format(startDate),
+          'endDate':DateFormat('yyyy-MM-dd').format(endDate),
+        }
+    );
+    print('-----datasource');
+    print((res.data as Map<String, dynamic>).map(
+            (key, val) => MapEntry(key, (val as num).toDouble())
+    ));
+
+    return (res.data as Map<String, dynamic>).map(
+        (key, val) => MapEntry(key, (val as num).toDouble())
+    );
   });
 
 
