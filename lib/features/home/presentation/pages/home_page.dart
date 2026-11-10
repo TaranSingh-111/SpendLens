@@ -3,6 +3,7 @@ import 'package:spend_lens/features/dashboard/presentation/pages/dashboard_page.
 
 import '../../../expenses/presentation/pages/expense_form_page.dart';
 import '../../../expenses/presentation/pages/expenses_page.dart';
+import '../../../profile/presentation/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     ExpensesPage(),
     ExpenseFormPage(),
     //AnalyticsPage(),
-    //ProfilePage(),
+    ProfilePage(),
   ];
 
   @override
@@ -57,11 +58,11 @@ class _HomePageState extends State<HomePage> {
           //   selectedIcon: Icon(Icons.analytics),
           //   label: 'Analytics',
           // ),
-          // NavigationDestination(
-          //   icon: Icon(Icons.person_outline),
-          //   selectedIcon: Icon(Icons.person),
-          //   label: 'Profile',
-          // ),
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
+            selectedIcon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
       ),
     );
