@@ -7,10 +7,12 @@ The application follows **Clean Architecture** principles with BLoC state manage
 
 ## 📱 Screenshots
 
-![Dashboard](assets/images/dashboard.png)
-![Expenses](assets/images/expenses.png)
-![Add Expense](assets/images/add_expense.png)
-![Profile](assets/images/profile.png)
+<p align="center">
+  <img src="assets/images/dashboard.png" width="24%" alt="Dashboard"/>
+  <img src="assets/images/expenses.png" width="24%" alt="Expenses"/>
+  <img src="assets/images/add_expense.png" width="24%" alt="Add Expense"/>
+  <img src="assets/images/profile.png" width="24%" alt="Profile"/>
+</p>
 
 
 ## ✨ Features
