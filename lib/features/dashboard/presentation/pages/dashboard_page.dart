@@ -13,6 +13,7 @@ import '../../../categories/presentation/bloc/categories_event.dart';
 import '../../../categories/presentation/bloc/categories_state.dart';
 import '../../../expenses/presentation/bloc/expenses_state.dart';
 
+import '../../../expenses/presentation/pages/expenses_page.dart';
 import '../widgets/budget_dialog.dart';
 import '../widgets/category_spending_grid.dart';
 
@@ -90,6 +91,17 @@ class _DashboardPageState extends State<DashboardPage> {
                   builder: (context, categoryState) {
                     return CategorySpendingGrid(
                       totals: categoryState.categoryTotals,
+                      onCategoryTap: (category) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => BlocProvider.value(
+                                  value: context.read<ExpensesBloc>(),
+                                child: ExpensesPage(category: category),
+                              )
+                          )
+                        );
+                      },
                     );
                   },
                 ),

@@ -10,7 +10,9 @@ import 'package:spend_lens/features/expenses/presentation/pages/expense_details_
 import '../../../categories/presentation/bloc/categories_bloc.dart';
 
 class ExpensesPage extends StatefulWidget {
-  const ExpensesPage({super.key});
+  final String? category;
+
+  const ExpensesPage({super.key, this.category});
 
   @override
   State<ExpensesPage> createState() => _ExpensesPageState();
@@ -20,7 +22,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Expenses')),
+      appBar: AppBar(title: Text(widget.category ?? 'My Expenses')),
       body: BlocBuilder<ExpensesBloc, ExpensesState>(
         builder: (context, state) {
           switch (state.listStatus) {
@@ -30,11 +32,22 @@ class _ExpensesPageState extends State<ExpensesPage> {
 
             case LoadStatus.success:
               if (state.expenses.isEmpty) {
-                return const Center(child: Text('No expenses yet.'));
+                return Center(
+                  child: Text(
+                    widget.category == null
+                        ? 'No expenses yet.'
+                        : 'No expenses found in ${widget.category}',
+                  ),
+                );
               }
 
-              final expenses = [...state.expenses]
-                ..sort((a, b) => b.expenseDate.compareTo(a.expenseDate));
+              final expenses =
+                  state.expenses.where((expense) {
+                      if (widget.category == null) return true;
+
+                      return expense.category == widget.category;
+                    }).toList()
+                    ..sort((a, b) => b.expenseDate.compareTo(a.expenseDate));
 
               return ListView.builder(
                 itemCount: expenses.length,

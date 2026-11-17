@@ -9,10 +9,12 @@ import 'category_card.dart';
 
 class CategorySpendingGrid extends StatelessWidget {
   final Map<String, double> totals;
+  final Function(String category) onCategoryTap;
 
   const CategorySpendingGrid({
     super.key,
     required this.totals,
+    required this.onCategoryTap,
   });
 
   @override
@@ -36,9 +38,12 @@ class CategorySpendingGrid extends StatelessWidget {
             final category = categories[index];
             final total = totals[category] ?? 0.0;
 
-            return CategoryCard(
-              category: category,
-              total: total,
+            return InkWell(
+              onTap: () => onCategoryTap(category),
+              child: CategoryCard(
+                category: category,
+                total: total,
+              ),
             );
           },
         );
