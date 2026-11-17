@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:spend_lens/features/expenses/data/models/expense_model.dart';
 
 class ExpensesRemoteDataSource {
@@ -7,8 +7,17 @@ class ExpensesRemoteDataSource {
 
   ExpensesRemoteDataSource(this._dio);
 
-  Future<List<ExpenseModel>> getAllExpenses() => _guard(() async{
-    final res = await _dio.get('/expenses');
+  Future<List<ExpenseModel>> getAllExpenses({
+    required DateTime startDate,
+    required DateTime endDate
+}) => _guard(() async{
+    final res = await _dio.get(
+        '/expenses',
+      queryParameters: {
+        'startDate': DateFormat('yyyy-MM-dd').format(startDate),
+        'endDate':DateFormat('yyyy-MM-dd').format(endDate),
+      }
+    );
 
     final List<dynamic> data = res.data;
 

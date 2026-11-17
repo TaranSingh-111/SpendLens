@@ -128,10 +128,10 @@ return deleteExpense(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadExpenses,TResult Function( int id)?  loadExpense,TResult Function( Expense expense)?  addExpense,TResult Function( int id,  Expense expense)?  updateExpense,TResult Function( int id)?  deleteExpense,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DateTime startDate,  DateTime endDate)?  loadExpenses,TResult Function( int id)?  loadExpense,TResult Function( Expense expense)?  addExpense,TResult Function( int id,  Expense expense)?  updateExpense,TResult Function( int id)?  deleteExpense,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LoadExpenses() when loadExpenses != null:
-return loadExpenses();case LoadExpense() when loadExpense != null:
+return loadExpenses(_that.startDate,_that.endDate);case LoadExpense() when loadExpense != null:
 return loadExpense(_that.id);case AddExpense() when addExpense != null:
 return addExpense(_that.expense);case UpdateExpense() when updateExpense != null:
 return updateExpense(_that.id,_that.expense);case DeleteExpense() when deleteExpense != null:
@@ -153,10 +153,10 @@ return deleteExpense(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadExpenses,required TResult Function( int id)  loadExpense,required TResult Function( Expense expense)  addExpense,required TResult Function( int id,  Expense expense)  updateExpense,required TResult Function( int id)  deleteExpense,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DateTime startDate,  DateTime endDate)  loadExpenses,required TResult Function( int id)  loadExpense,required TResult Function( Expense expense)  addExpense,required TResult Function( int id,  Expense expense)  updateExpense,required TResult Function( int id)  deleteExpense,}) {final _that = this;
 switch (_that) {
 case LoadExpenses():
-return loadExpenses();case LoadExpense():
+return loadExpenses(_that.startDate,_that.endDate);case LoadExpense():
 return loadExpense(_that.id);case AddExpense():
 return addExpense(_that.expense);case UpdateExpense():
 return updateExpense(_that.id,_that.expense);case DeleteExpense():
@@ -174,10 +174,10 @@ return deleteExpense(_that.id);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadExpenses,TResult? Function( int id)?  loadExpense,TResult? Function( Expense expense)?  addExpense,TResult? Function( int id,  Expense expense)?  updateExpense,TResult? Function( int id)?  deleteExpense,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DateTime startDate,  DateTime endDate)?  loadExpenses,TResult? Function( int id)?  loadExpense,TResult? Function( Expense expense)?  addExpense,TResult? Function( int id,  Expense expense)?  updateExpense,TResult? Function( int id)?  deleteExpense,}) {final _that = this;
 switch (_that) {
 case LoadExpenses() when loadExpenses != null:
-return loadExpenses();case LoadExpense() when loadExpense != null:
+return loadExpenses(_that.startDate,_that.endDate);case LoadExpense() when loadExpense != null:
 return loadExpense(_that.id);case AddExpense() when addExpense != null:
 return addExpense(_that.expense);case UpdateExpense() when updateExpense != null:
 return updateExpense(_that.id,_that.expense);case DeleteExpense() when deleteExpense != null:
@@ -193,33 +193,69 @@ return deleteExpense(_that.id);case _:
 
 
 class LoadExpenses implements ExpensesEvent {
-  const LoadExpenses();
+  const LoadExpenses({required this.startDate, required this.endDate});
   
 
+ final  DateTime startDate;
+ final  DateTime endDate;
 
-
+/// Create a copy of ExpensesEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadExpensesCopyWith<LoadExpenses> get copyWith => _$LoadExpensesCopyWithImpl<LoadExpenses>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadExpenses);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadExpenses&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,startDate,endDate);
 
 @override
 String toString() {
-  return 'ExpensesEvent.loadExpenses()';
+  return 'ExpensesEvent.loadExpenses(startDate: $startDate, endDate: $endDate)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $LoadExpensesCopyWith<$Res> implements $ExpensesEventCopyWith<$Res> {
+  factory $LoadExpensesCopyWith(LoadExpenses value, $Res Function(LoadExpenses) _then) = _$LoadExpensesCopyWithImpl;
+@useResult
+$Res call({
+ DateTime startDate, DateTime endDate
+});
 
 
+
+
+}
+/// @nodoc
+class _$LoadExpensesCopyWithImpl<$Res>
+    implements $LoadExpensesCopyWith<$Res> {
+  _$LoadExpensesCopyWithImpl(this._self, this._then);
+
+  final LoadExpenses _self;
+  final $Res Function(LoadExpenses) _then;
+
+/// Create a copy of ExpensesEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? startDate = null,Object? endDate = null,}) {
+  return _then(LoadExpenses(
+startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
+as DateTime,endDate: null == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

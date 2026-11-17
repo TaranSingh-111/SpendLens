@@ -23,7 +23,10 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
     emit(state.copyWith(listStatus: LoadStatus.loading));
 
     try{
-      final expenses = await _expenseRepo.getAllExpenses();
+      final expenses = await _expenseRepo.getAllExpenses(
+        startDate: event.startDate,
+        endDate: event.endDate
+      );
 
       emit(state.copyWith(
         listStatus: LoadStatus.success,

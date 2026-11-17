@@ -33,6 +33,7 @@ class _AuthGateState extends State<AuthGate> {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
     return BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state){
           return switch(state) {
@@ -47,7 +48,10 @@ class _AuthGateState extends State<AuthGate> {
                 BlocProvider<ExpensesBloc>(
                     create: (context) => ExpensesBloc(
                       expenseRepo: context.read<ExpensesRepo>(),
-                    )..add(LoadExpenses()),
+                    )..add(LoadExpenses(
+                        startDate: DateTime(now.year, now.month, 1),
+                        endDate: DateTime(now.year, now.month + 1, 1))
+                    ),
                 ),
                 BlocProvider<CategoriesBloc>(
                   create: (context) => CategoriesBloc(

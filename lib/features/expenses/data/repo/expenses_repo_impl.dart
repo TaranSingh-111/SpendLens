@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:spend_lens/features/expenses/data/data_sources/expenses_remote_data_source.dart';
 import 'package:spend_lens/features/expenses/domain/entities/expense.dart';
 import 'package:spend_lens/features/expenses/domain/repo/expenses_repo.dart';
@@ -23,8 +25,8 @@ class ExpensesRepoImpl implements ExpensesRepo{
   }
 
   @override
-  Future<List<Expense>> getAllExpenses() async{
-    final models = await _remote.getAllExpenses();
+  Future<List<Expense>> getAllExpenses({required DateTime startDate, required DateTime endDate}) async{
+    final models = await _remote.getAllExpenses(startDate: startDate, endDate: endDate);
 
     return models.map((model) => model.toEntity()).toList();
   }

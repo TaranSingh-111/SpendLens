@@ -19,6 +19,8 @@ class ExpensesPage extends StatefulWidget {
 }
 
 class _ExpensesPageState extends State<ExpensesPage> {
+  final now = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +96,10 @@ class _ExpensesPageState extends State<ExpensesPage> {
                     const SizedBox(height: 12),
                     ElevatedButton(
                       onPressed: () {
-                        context.read<ExpensesBloc>().add(LoadExpenses());
+                        context.read<ExpensesBloc>().add(LoadExpenses(
+                            startDate: DateTime(now.year, now.month, 1),
+                            endDate: DateTime(now.year, now.month + 1, 1)
+                        ));
                       },
                       child: const Text('Retry'),
                     ),

@@ -6,7 +6,10 @@ part 'expenses_event.freezed.dart';
 
 @freezed
 sealed class ExpensesEvent with _$ExpensesEvent {
-  const factory ExpensesEvent.loadExpenses() = LoadExpenses;
+  const factory ExpensesEvent.loadExpenses({
+  required DateTime startDate,
+  required DateTime endDate,
+}) = LoadExpenses;
 
   const factory ExpensesEvent.loadExpense({required int id}) = LoadExpense;
 
