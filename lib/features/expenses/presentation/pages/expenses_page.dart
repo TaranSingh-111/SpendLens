@@ -6,7 +6,9 @@ import 'package:spend_lens/features/expenses/presentation/bloc/expenses_bloc.dar
 import 'package:spend_lens/features/expenses/presentation/bloc/expenses_event.dart';
 import 'package:spend_lens/features/expenses/presentation/bloc/expenses_state.dart';
 import 'package:spend_lens/features/expenses/presentation/pages/expense_details_page.dart';
+import 'package:spend_lens/features/month_selection/presentation/cubit/month_selection_cubit.dart';
 
+import '../../../../core/widgets/month_selector.dart';
 import '../../../categories/presentation/bloc/categories_bloc.dart';
 
 class ExpensesPage extends StatefulWidget {
@@ -19,95 +21,105 @@ class ExpensesPage extends StatefulWidget {
 }
 
 class _ExpensesPageState extends State<ExpensesPage> {
-  final now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.category ?? 'My Expenses')),
-      body: BlocBuilder<ExpensesBloc, ExpensesState>(
-        builder: (context, state) {
-          switch (state.listStatus) {
-            case LoadStatus.initial:
-            case LoadStatus.loading:
-              return const Center(child: CircularProgressIndicator());
+      body: Column(
+        children: [
+          if (widget.category == null)
+            const MonthSelector(),
 
-            case LoadStatus.success:
-              if (state.expenses.isEmpty) {
-                return Center(
-                  child: Text(
-                    widget.category == null
-                        ? 'No expenses yet.'
-                        : 'No expenses found in ${widget.category}',
-                  ),
-                );
-              }
+          Expanded(
+            child: BlocBuilder<ExpensesBloc, ExpensesState>(
+              builder: (context, state) {
+                switch (state.listStatus) {
+                  case LoadStatus.initial:
+                  case LoadStatus.loading:
+                    return const Center(child: CircularProgressIndicator());
 
-              final expenses =
-                  state.expenses.where((expense) {
-                      if (widget.category == null) return true;
+                  case LoadStatus.success:
 
-                      return expense.category == widget.category;
-                    }).toList()
-                    ..sort((a, b) => b.expenseDate.compareTo(a.expenseDate));
+                    final expenses =
+                        state.expenses.where((expense) {
+                            if (widget.category == null) return true;
 
-              return ListView.builder(
-                itemCount: expenses.length,
-                itemBuilder: (context, index) {
-                  final expense = expenses[index];
+                            return expense.category == widget.category;
+                          }).toList()
+                          ..sort((a, b) => b.expenseDate.compareTo(a.expenseDate));
 
-                  return ListTile(
-                    leading: Text(
-                      DateFormat('dd/MM').format(expense.expenseDate),
-                    ),
-                    title: Text(expense.category),
-                    subtitle: Text(expense.description ?? ''),
-                    trailing: Text('₹${expense.amount}'),
+                    if (state.expenses.isEmpty) {
+                      return Center(
+                        child: Text(
+                          widget.category == null
+                              ? 'No expenses yet.'
+                              : 'No expenses found in ${widget.category}',
+                        ),
+                      );
+                    }
 
-                    onTap: () {
-                      if (expense.id != null) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => MultiBlocProvider(
-                              providers: [
-                                BlocProvider.value(
-                                  value: context.read<ExpensesBloc>(),
-                                ),
-                                BlocProvider.value(
-                                  value: context.read<CategoriesBloc>(),
-                                ),
-                              ],
-                              child: ExpenseDetailsPage(expenseId: expense.id!),
-                            ),
+                    return ListView.builder(
+                      itemCount: expenses.length,
+                      itemBuilder: (context, index) {
+                        final expense = expenses[index];
+
+                        return ListTile(
+                          leading: Text(
+                            DateFormat('dd/MM').format(expense.expenseDate),
                           ),
-                        );
-                      }
-                    },
-                  );
-                },
-              );
+                          title: Text(expense.category),
+                          subtitle: Text(expense.description ?? ''),
+                          trailing: Text('₹${expense.amount}'),
 
-            case LoadStatus.error:
-              return Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(state.listErrorMessage ?? 'Something went wrong'),
-                    const SizedBox(height: 12),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<ExpensesBloc>().add(LoadExpenses(
-                            startDate: DateTime(now.year, now.month, 1),
-                            endDate: DateTime(now.year, now.month + 1, 1)
-                        ));
+                          onTap: () {
+                            if (expense.id != null) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider.value(
+                                        value: context.read<ExpensesBloc>(),
+                                      ),
+                                      BlocProvider.value(
+                                        value: context.read<CategoriesBloc>(),
+                                      ),
+                                    ],
+                                    child: ExpenseDetailsPage(expenseId: expense.id!),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        );
                       },
-                      child: const Text('Retry'),
-                    ),
-                  ],
-                ),
-              );
-          }
-        },
+                    );
+
+                  case LoadStatus.error:
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(state.listErrorMessage ?? 'Something went wrong'),
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: () {
+                              final month = context.read<MonthSelectionCubit>().state.selectedMonth;
+                              context.read<ExpensesBloc>().add(LoadExpenses(
+                                  startDate: DateTime(month.year, month.month, 1),
+                                  endDate: DateTime(month.year, month.month + 1, 1)
+                              ));
+                            },
+                            child: const Text('Retry'),
+                          ),
+                        ],
+                      ),
+                    );
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -13,6 +13,7 @@ import 'package:spend_lens/features/expenses/presentation/bloc/expenses_event.da
 import 'package:spend_lens/features/home/presentation/pages/home_page.dart';
 
 import '../../../categories/domain/repo/categories_repo.dart';
+import '../../../month_selection/presentation/cubit/month_selection_cubit.dart';
 import 'register_page.dart';
 
 class AuthGate extends StatefulWidget {
@@ -45,6 +46,9 @@ class _AuthGateState extends State<AuthGate> {
 
             Authenticated(:final user) => MultiBlocProvider(
               providers: [
+                BlocProvider(
+                  create: (_) => MonthSelectionCubit(),
+                ),
                 BlocProvider<ExpensesBloc>(
                     create: (context) => ExpensesBloc(
                       expenseRepo: context.read<ExpensesRepo>(),

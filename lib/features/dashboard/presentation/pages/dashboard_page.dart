@@ -1,10 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spend_lens/core/widgets/month_selector.dart';
 import 'package:spend_lens/features/budget/domain/entities/budget.dart';
 import 'package:spend_lens/features/budget/presentation/bloc/budget_state.dart';
 import 'package:spend_lens/features/dashboard/presentation/widgets/spending_card.dart';
 import 'package:spend_lens/features/dashboard/util/calculate_monthly_spending.dart';
 import 'package:spend_lens/features/expenses/presentation/bloc/expenses_bloc.dart';
+import 'package:spend_lens/features/expenses/presentation/bloc/expenses_event.dart';
+import 'package:spend_lens/features/month_selection/presentation/cubit/month_selection_cubit.dart';
+import 'package:spend_lens/features/month_selection/presentation/cubit/month_selection_state.dart';
 
 import '../../../budget/presentation/bloc/budget_bloc.dart';
 import '../../../budget/presentation/bloc/budget_event.dart';
@@ -26,24 +32,6 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   @override
-  void initState() {
-    super.initState();
-
-    final now = DateTime.now();
-
-    context.read<BudgetBloc>().add(
-      BudgetEvent.loadBudget(year: now.year, month: now.month),
-    );
-
-    context.read<CategoriesBloc>().add(
-      CategoriesEvent.loadCategoriesTotal(
-          startDate: DateTime(now.year, now.month, 1),
-          endDate: DateTime(now.year, now.month + 1, 1)
-      )
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Dashboard')),
@@ -61,6 +49,11 @@ class _DashboardPageState extends State<DashboardPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
+                //month selector
+                const MonthSelector(),
+
+
                 //budget card
                 BlocBuilder<BudgetBloc, BudgetState>(
                   builder: (context, budgetState) {
@@ -82,7 +75,10 @@ class _DashboardPageState extends State<DashboardPage> {
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Text(
                     'Category Spending',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
 
@@ -95,11 +91,22 @@ class _DashboardPageState extends State<DashboardPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => BlocProvider.value(
-                                  value: context.read<ExpensesBloc>(),
-                                child: ExpensesPage(category: category),
-                              )
-                          )
+                            builder: (_) =>
+                                MultiBlocProvider(
+                                  providers: [
+                                    BlocProvider.value(
+                                      value: context.read<ExpensesBloc>(),
+                                    ),
+                                    BlocProvider.value(
+                                      value: context.read<CategoriesBloc>(),
+                                    ),
+                                    BlocProvider(
+                                      create: (context) => MonthSelectionCubit(),
+                                    ),
+                                  ],
+                                  child: ExpensesPage(category: category),
+                                ),
+                          ),
                         );
                       },
                     );
@@ -116,10 +123,11 @@ class _DashboardPageState extends State<DashboardPage> {
   void _showBudgetDialog() {
     showDialog(
       context: context,
-      builder: (_) => BlocProvider.value(
-        value: context.read<BudgetBloc>(),
-        child: const BudgetDialog(),
-      ),
+      builder: (_) =>
+          BlocProvider.value(
+            value: context.read<BudgetBloc>(),
+            child: const BudgetDialog(),
+          ),
     );
   }
 }
